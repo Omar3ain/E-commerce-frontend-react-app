@@ -29,12 +29,12 @@ fi
 
 # Create the component directory and files
 mkdir -p "$component_dir"
-touch "$component_dir/$component_name.tsx"
+touch "$component_dir/$component_name.jsx"
 touch "$component_dir/$component_name.css"
-touch "$component_dir/index.ts"
+touch "$component_dir/index.js"
 
 # Write the contents to the component file
-cat > "$component_dir/$component_name.tsx" << EOF
+cat > "$component_dir/$component_name.jsx" << EOF
 import './$component_name.css'
 
 function $component_name() {
@@ -49,7 +49,7 @@ export default $component_name
 EOF
 
 # Write the contents to the index file
-cat > "$component_dir/index.ts" << EOF
+cat > "$component_dir/index.js" << EOF
 export { default } from './$component_name'
 EOF
 
