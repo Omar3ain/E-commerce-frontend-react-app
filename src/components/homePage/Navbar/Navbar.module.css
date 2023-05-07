@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poiret+One&family=Righteous&display=swap');
+.navbar-pos{
+
+  position: relative;
+  z-index: 1;
+
+}
+.logo{
+  color: white;
+}
+.me-auto {
+  margin-left: auto!important;
+}
+.logo{
+  color: #2D2A32 !important;
+  text-decoration: none;
+  font-family: 'Righteous', cursive;
+  font-size: 3rem;
+}
+.logo span{
+  color: #85822E;
+  font-size: 3.5rem;
+  font-family: 'Poiret One', cursive;
+  /* font-family: 'Dancing Script', cursive; */
+}

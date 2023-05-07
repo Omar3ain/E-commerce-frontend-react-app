@@ -1,0 +1,11 @@
+.layout{
+  width: 100vw;
+  height: 100vh;
+}
+.layout nav{
+  background:none !important;
+}
+.navbar-brand{
+  color: #2D2A32 !important;
+
+}
