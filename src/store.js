@@ -1,22 +1,31 @@
 import { combineReducers, applyMiddleware } from 'redux';
-import { configureStore } from '@reduxjs/toolkit'
+import { configureStore } from "@reduxjs/toolkit";
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 // Reducers
-import { authReducer } from './reducers/userReducers';
+import authReducer from './features/auth/authSlice';
+// import { authReducer } from './reducers/userReducers';
 
-const reducer = combineReducers({
-    auth: authReducer,
-});
+// const reducer = combineReducers({
+//     auth: authReducer,
+// });
 
-let initialState = {};
+// let initialState = {};
 
-const middleware = [thunk];
+// const middleware = [thunk];
+
+// const store = configureStore({
+//     reducer,
+//     initialState
+// });
+
+// export default store;
 
 const store = configureStore({
-    reducer,
-    initialState
+    reducer: {
+        auth: authReducer,
+    },
 });
 
 export default store;

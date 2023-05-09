@@ -14,6 +14,7 @@
     "@emotion/react": "^11.11.0",
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.11.16",
+    "@mui/joy": "^5.0.0-alpha.78",
     "@mui/material": "^5.12.3",
     "@reduxjs/toolkit": "^1.9.5",
     "@splinetool/react-spline": "^2.2.1",
@@ -25,6 +26,7 @@
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.11.1",
+    "react-toastify": "^9.1.2",
     "redux-devtools-extension": "^2.13.9"
   },
   "devDependencies": {

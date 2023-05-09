@@ -1,89 +1,146 @@
 import React, { Fragment, useEffect, useState } from "react";
 import Loader from "../../layout/loader";
-import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { login, clearErrors } from "../../../actions/userActions";
-// import { login } from '../userSlice';
-// import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import { login } from "../../../features/auth/authSlice";
+import { CssVarsProvider, useColorScheme } from '@mui/joy/styles';
+import Sheet from '@mui/joy/Sheet';
+import Typography from '@mui/joy/Typography';
+import FormControl from '@mui/joy/FormControl';
+import FormLabel from '@mui/joy/FormLabel';
+import Input from '@mui/joy/Input';
+import Button from '@mui/joy/Button';
+import Link from '@mui/joy/Link';
+import 'react-toastify/dist/ReactToastify.css';
 
-function Login({ history }) {
+function ModeToggle() {
+  const { mode, setMode } = useColorScheme();
+  const [mounted, setMounted] = useState(false);
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
+  if (!mounted) {
+    return null;
+  }
+
+  return (
+    <Button
+      variant="outlined"
+      onClick={() => {
+        setMode(mode === 'light' ? 'dark' : 'light');
+      }}
+    >
+      {mode === 'light' ? 'Turn dark' : 'Turn light'}
+    </Button>
+  );
+}
+
+function Login() {
   const dispatch = useDispatch();
-  const { loading, isAuthenticated, error } = useSelector(
+  
+  const { isLoading, isError, isSuccess, message } = useSelector(
     (state) => state.auth
   );
+  
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    if (isAuthenticated) {
-      history.push("/");
+    if (isSuccess) {
+      toast.success("Logged in successfully");
+      setIsLoggedIn(true);
     }
-    if (error) {
-      dispatch(clearErrors());
+    if (isError) {
+      toast.error(message);
     }
-  }, [dispatch, isAuthenticated, error, history]);
+  }, [dispatch, isSuccess, isError, history]);
+  
+  const submitHandler = () => {
 
-  const submitHandler = (e) => {
-    e.preventDefault();
-    dispatch(login(username, password));
+    const userData = {
+      username,
+      password,
+    };
+
+    dispatch(login(userData));
   };
+
+  if (isLoggedIn) {
+    return (
+      <div>
+        <h1>Welcome to your profile</h1>
+      </div>
+    );
+  }
 
   return (
     <Fragment>
-      {loading ? (
+      {isLoading ? (
         <Loader />
       ) : (
-        <Fragment>
-          <div className="container">
-            <div className="row wrapper">
-              <div className="col-10 col-lg-5">
-                <form className="shadow-lg" onSubmit={submitHandler}>
-                  <h1 className="mb-3">Login</h1>
-                  <div className="form-group">
-                    <label htmlFor="username_field">Username</label>
-                    <input
-                      type="text"
-                      id="username_field"
-                      className="form-control"
-                      value={username}
-                      onChange={(e) => setUsername(e.target.value)}
-                    />
-                  </div>
-
-                  <div className="form-group">
-                    <label htmlFor="password_field">Password</label>
-                    <input
-                      type="password"
-                      id="password_field"
-                      className="form-control"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                    />
-                  </div>
-
-                  <Link to="/password/forgot" className="float-right mb-4">
-                    Forgot Password?
-                  </Link>
-
-                  <button
-                    id="login_button"
-                    type="submit"
-                    className="btn btn-block py-3"
-                  >
-                    LOGIN
-                  </button>
-
-                  <Link to="/register" className="float-right mt-3">
-                    New User?
-                  </Link>
-                </form>
-              </div>
-            </div>
+        <CssVarsProvider>
+      <main>
+        <ModeToggle />
+        <Sheet
+          sx={{
+            width: 600,
+            height: 400,
+            mx: 'auto', // margin left & right
+            my: 4, // margin top & bottom
+            py: 3, // padding top & bottom
+            px: 2, // padding left & right
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 2,
+            borderRadius: 'sm',
+            boxShadow: 'md',
+          }}
+          variant="outlined"
+        >
+          <div>
+            <Typography level="h4" component="h1">
+              <b>Welcome!</b>
+            </Typography>
+            <Typography level="body2">Sign in to continue.</Typography>
           </div>
-        </Fragment>
-      )}
+          <FormControl>
+            <FormLabel>Username</FormLabel>
+            <Input
+              name="username"
+              type="text"
+              placeholder="your username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+          </FormControl>
+          <FormControl>
+            <FormLabel>Password</FormLabel>
+            <Input
+              name="password"
+              type="password"
+              placeholder="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </FormControl>
+
+          <Button sx={{ mt: 1 }} onClick={submitHandler}>Log in</Button>
+          <Typography
+            endDecorator={<Link href="/sign-up">Sign up</Link>}
+            fontSize="sm"
+            sx={{ alignSelf: 'center' }}
+          >
+            Don&apos;t have an account?
+          </Typography>
+          <ToastContainer />
+        </Sheet>
+      </main>
+    </CssVarsProvider>
+    )}
     </Fragment>
-  );
+    
+);
 }
 
 export default Login;
