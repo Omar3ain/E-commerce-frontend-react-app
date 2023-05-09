@@ -1,15 +1,25 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import './App.css'
 import pages from './pages';
+import NavbarComponent from "./components/homePage/Navbar/NavbarComponent";
+import CartRoutes from "./pages/CartPage/CartRoutes";
 function App() {
-  const [count, setCount] = useState(0)
-
-console.log(pages);
   return (
     <>
-    <pages.HomePage/>
+    <BrowserRouter basename="/">
+      <NavbarComponent />
+      <Routes>
+        <Route path="" element={<pages.HomePage />} />
+        <Route path="/cart/*" element={<CartRoutes />} />
+      </Routes>
+    </BrowserRouter>
+    {/* <BrowserRouter basename="/auth">
+      <NavbarComponent />
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+      </Routes>
+    </BrowserRouter> */}
     </>
   )
 }

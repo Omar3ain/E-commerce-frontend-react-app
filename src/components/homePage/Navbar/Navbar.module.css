@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Poiret+One&family=Righteous&display=swap');
 .navbar-pos{
-
+  background:none !important;
   position: relative;
   z-index: 1;
 
