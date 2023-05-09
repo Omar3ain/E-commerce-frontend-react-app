@@ -11,6 +11,10 @@
     "create-component": "./create-component.sh"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.0",
+    "@emotion/styled": "^11.11.0",
+    "@mui/icons-material": "^5.11.16",
+    "@mui/material": "^5.12.3",
     "@reduxjs/toolkit": "^1.9.5",
     "@splinetool/react-spline": "^2.2.1",
     "@splinetool/runtime": "^0.9.325",

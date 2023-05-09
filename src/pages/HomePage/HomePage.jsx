@@ -7,7 +7,7 @@ function HomePage() {
   return (
     <>
     <div className={styles['layout']}>
-    <NavbarComponent/>
+    {/* <NavbarComponent/> */}
     <Nexttoscene/>
     {/* <Scene/> */}
     </div>
