@@ -11,12 +11,17 @@
     "create-component": "./create-component.sh"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^1.9.5",
     "@splinetool/react-spline": "^2.2.1",
     "@splinetool/runtime": "^0.9.325",
+    "axios": "^1.4.0",
     "bootstrap": "^5.2.3",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.4",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-redux": "^8.0.5",
+    "react-router-dom": "^6.11.1",
+    "redux-devtools-extension": "^2.13.9"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",

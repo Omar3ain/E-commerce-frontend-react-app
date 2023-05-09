@@ -15,6 +15,7 @@ function NavbarComponent() {
             <Nav.Link href="#home"style={{ color: '#2D2A32',fontSize:'18px'}} >Home</Nav.Link>
             <Nav.Link href="#features" style={{ color: '#2D2A32',fontSize:'18px' }} >Products</Nav.Link>
             <Nav.Link href="#pricing" style={{ color: '#2D2A32',fontSize:'18px' }} >Pricing</Nav.Link>
+            <Nav.Link href="/login" style={{ color: '#2D2A32',fontSize:'18px' }} >Login</Nav.Link>
           </Nav>
         </Container>
       </Navbar>
