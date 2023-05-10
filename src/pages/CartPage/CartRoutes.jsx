@@ -1,10 +1,10 @@
 import { Routes, Route } from "react-router-dom";
-import Cart from "../../components/cart/Cart";
+import CartPage from "./CartPage";
 
 const CartRoutes = () => {
   return (
     <Routes>
-    <Route path="/" element={<Cart />} />
+    <Route path="/" element={<CartPage />} />
     </Routes>
   )
 }
