@@ -5,6 +5,7 @@ import Login from './components/user/login';
 
 import NavbarComponent from "./components/homePage/Navbar/NavbarComponent";
 import CartRoutes from "./pages/CartPage/CartRoutes";
+import Products from "./pages/ProductsPage/Products";
 function App() {
   return (
     <>
@@ -17,6 +18,7 @@ function App() {
         <Route path="" element={<pages.HomePage />} />
         <Route path="/cart/*" element={<CartRoutes />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/products" element={<pages.Products />} />
       </Routes>
     </BrowserRouter>
     </>

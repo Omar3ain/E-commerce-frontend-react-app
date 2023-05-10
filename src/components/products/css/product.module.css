@@ -1,0 +1,34 @@
+.out-of-stock{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top:0;
+    color: red;
+    width: 100%;
+    height: 300px;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 0.2rem 1rem;
+}
+
+.overlay{
+    align-items: end;
+    justify-content: center;
+    padding: 2rem 0;
+    width: 100%;
+    height: 300px;
+    position: absolute;
+    top: 0;
+    /* background-color: rgba(0, 0, 0, 0.5); */
+    display: none;
+}
+
+.card-item:hover .overlay{
+    display: flex;
+}
+
+.product-detail{
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
