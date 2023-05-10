@@ -9,7 +9,8 @@ function HomePage() {
     <div className={styles['layout']}>
     {/* <NavbarComponent/> */}
     <Nexttoscene/>
-    {/* <Scene/> */}
+    <Scene/>
+
     </div>
     </>
   )
