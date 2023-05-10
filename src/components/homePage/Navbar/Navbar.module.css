@@ -1,17 +1,30 @@
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Poiret+One&family=Righteous&display=swap');
-.navbar-pos{
-  background:none !important;
+.navContainer{
+  display: flex;
+  flex-wrap: inherit;
+  align-items: center;
+  justify-content: space-between; 
+  width: 90%;
+  margin: 0 auto;
   position: relative;
-  z-index: 1;
+  z-index: 5;
+}
+.navContainer ul {
+  display: flex;
+  list-style: none;
+}
+.navContainer ul li{
+  margin-left: 1rem;
 
 }
-.logo{
-  color: white;
+.navContainer ul li a {
+  text-decoration: none;
+  color: #2D2A32;
+  font-size:18px;
 }
-.me-auto {
-  margin-left: auto!important;
-}
+
+
 .logo{
   color: #2D2A32 !important;
   text-decoration: none;
@@ -22,5 +35,84 @@
   color: #85822E;
   font-size: 3.5rem;
   font-family: 'Poiret One', cursive;
-  /* font-family: 'Dancing Script', cursive; */
 }
+.hamburger {
+
+  width: 60px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  display: none !important;
+}
+
+.hamburger-init {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  cursor: pointer;
+  outline: none;
+}
+
+.menu {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.menu .bar1,
+.menu .bar2,
+.menu .bar3 {
+  width: 100%;
+  height: 5px;
+  background: #000;
+  transition: all .3s;
+}
+
+.hamburger-init:checked + .menu .bar1 {
+  transform: translateY(20px) rotate(45deg);
+}
+
+.hamburger-init:checked + .menu .bar2 {
+  opacity: 0;
+}
+
+.hamburger-init:checked + .menu .bar3 {
+  transform: translateY(-20px) rotate(-45deg);
+}
+
+@media (max-width: 922px) {
+  .hamburger {
+    display: flex !important;
+    z-index: 5;
+  }
+
+  .list{
+    display: none !important;
+  }
+  .list.isActive  {
+    position: absolute;
+    left: 0;
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100vw !important;
+    height: 100vh !important;
+    background: #fbfbfb;
+    margin: 0;
+    padding: 0;
+    z-index: 4;
+    margin-top: 185px;
+    font-size: 30px;
+  }
+}
+

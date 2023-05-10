@@ -4,8 +4,6 @@
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
-  height: 500px;
-
 }
 .flex-wrap{
   flex: 1 1 100px;
@@ -43,4 +41,13 @@
 .text button:hover{
   transform: rotate(-5deg);
   transition: 0.25s;
+}
+
+@media (max-width: 922px) {
+  .text button{
+  width: 170px;
+  }
+  .text{
+    padding: 2rem;
+  }
 }
