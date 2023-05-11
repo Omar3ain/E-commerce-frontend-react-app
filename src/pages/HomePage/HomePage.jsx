@@ -10,8 +10,10 @@ function HomePage() {
     <>
     <div className={styles['layout']}>
     {/* <NavbarComponent/> */}
-      <Nexttoscene/>
-      <Scene/>
+    <div style={{ position: 'relative' }}>
+        <Nexttoscene/>
+        <Scene/>
+      </div>
       <Categories/>
       <Footer/>
     </div>

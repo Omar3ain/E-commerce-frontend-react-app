@@ -11,7 +11,7 @@ function Scene() {
     }
   return (
     <>
-    <Spline className={loaded ? styles['fade-in'] : styles['hidden']} scene="https://prod.spline.design/c4SYVB9qtnHPdfls/scene.splinecode" onLoad={handleLoad} />
+      <Spline className={loaded ? styles['fade-in'] : styles['hidden']} scene="https://prod.spline.design/c4SYVB9qtnHPdfls/scene.splinecode" onLoad={handleLoad} />
   </>
   )
 }
