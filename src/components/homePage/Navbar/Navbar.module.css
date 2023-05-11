@@ -30,6 +30,7 @@
   text-decoration: none;
   font-family: 'Righteous', cursive;
   font-size: 3rem;
+  cursor: pointer;
 }
 .logo span{
   color: #85822E;
@@ -87,6 +88,16 @@
 
 .hamburger-init:checked + .menu .bar3 {
   transform: translateY(-20px) rotate(-45deg);
+}
+.background_btn{
+  background: #ece87d;
+  color: #2d2a32;
+  border: 1px #85822e solid;
+}
+.background_btn:hover{
+  background: #fffcae;
+  color: #2d2a32;
+  border: 1px #85822e solid;
 }
 
 @media (max-width: 922px) {

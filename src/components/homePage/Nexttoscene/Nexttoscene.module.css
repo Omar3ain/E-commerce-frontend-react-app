@@ -4,6 +4,7 @@
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
+  margin-bottom: 70px;
 }
 .flex-wrap{
   flex: 1 1 100px;
@@ -50,4 +51,28 @@
   .text{
     padding: 2rem;
   }
+  .layout{
+    margin-bottom: 207px;
+  }
+}
+@media (max-width: 768px) {
+  .text p{
+    background: #eeef9f;
+    padding: 5px;
+    border-radius: 31px;
+  }
+
+}
+@media (max-width: 425px) {
+  .layout{
+    margin-bottom: 92px;
+  }
+
+}
+
+@media (max-width: 375px) {
+  .layout{
+    margin-bottom: 78px;
+  }
+
 }

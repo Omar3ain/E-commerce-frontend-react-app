@@ -1,10 +1,10 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useState } from "react";
 import styles from "./Navbar.module.css";
-import Container from "react-bootstrap/Container";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../../../features/auth/authSlice";
 import { useSelector, useDispatch } from "react-redux";
+
 
 function NavbarComponent() {
   const [active, setActive] = useState(false);
@@ -19,7 +19,7 @@ function NavbarComponent() {
   return (
     <>
       <div className={styles["navContainer"]}>
-        <p className={styles["logo"]}>
+        <p className={styles["logo"]} onClick={() => navigate("/")}>
           <span>W</span>ebsite
         </p>
         <div className={styles["hamburger"]}>
@@ -51,7 +51,7 @@ function NavbarComponent() {
           {user ? (
             <>
               <li>
-                <a href="/" className="btn btn-primary" onClick={onLogout}>
+                <a href="/" className={"btn btn-primary " + styles['background_btn']} onClick={onLogout}>
                   Logout
                 </a>
               </li>
@@ -59,12 +59,12 @@ function NavbarComponent() {
           ) : (
             <>
               <li>
-                <a href="/login" className="btn btn-primary">
-                  Login
-                </a>
+              <a href="/login" className={"btn btn-primary " + styles['background_btn']}>
+                Login
+              </a>
               </li>
               <li>
-                <a href="/register" className="btn btn-primary">
+                <a href="/register" className={"btn btn-primary " + styles['background_btn']}>
                   Register
                 </a>
               </li>

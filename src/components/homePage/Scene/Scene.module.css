@@ -18,3 +18,9 @@
     opacity: 1;
   }
 }
+@media (max-width: 425px) {
+  .fade-in{
+    display: none;
+  }
+
+}
