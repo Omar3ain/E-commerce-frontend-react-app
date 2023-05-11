@@ -1,6 +1,8 @@
+import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { Fragment, useEffect, useState } from "react";
 import Loader from "../../layout/loader";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import { login } from "../../../features/auth/authSlice";
 import { CssVarsProvider, useColorScheme } from '@mui/joy/styles';
@@ -37,8 +39,9 @@ function ModeToggle() {
 
 function Login() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   
-  const { isLoading, isError, isSuccess, message } = useSelector(
+  const { user, isLoading, isError, isSuccess, message } = useSelector(
     (state) => state.auth
   );
   
@@ -47,14 +50,14 @@ function Login() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    if (isSuccess) {
+    if (isSuccess || user) {
       toast.success("Logged in successfully");
       setIsLoggedIn(true);
     }
     if (isError) {
       toast.error(message);
     }
-  }, [dispatch, isSuccess, isError, history]);
+  }, [dispatch, isSuccess, isError]);
   
   const submitHandler = () => {
 
@@ -67,11 +70,7 @@ function Login() {
   };
 
   if (isLoggedIn) {
-    return (
-      <div>
-        <h1>Welcome to your profile</h1>
-      </div>
-    );
+    navigate("/");
   }
 
   return (
@@ -125,7 +124,7 @@ function Login() {
             />
           </FormControl>
 
-          <Button sx={{ mt: 1 }} onClick={submitHandler}>Log in</Button>
+          <Button sx={{ mt: 1 }} onClick={submitHandler}>Login</Button>
           <Typography
             endDecorator={<Link href="/sign-up">Sign up</Link>}
             fontSize="sm"
