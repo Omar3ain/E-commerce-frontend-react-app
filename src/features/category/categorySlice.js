@@ -31,7 +31,7 @@ const categorySlice = createSlice({
             state.isLoading = true;
           })
           .addCase(getCategories.fulfilled, (state, action) => {
-            console.log(action);
+
             state.isLoading = false;
             state.categories = action.payload;
           })

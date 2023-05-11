@@ -9,8 +9,7 @@ function Categories() {
     },[]);
     const images =  ['https://i.ibb.co/s2nghrT/ad-operations-process-strategy-activation.png','https://i.ibb.co/ZWp3Yts/ad-operations-process-strategy.png']
     const { categories , isLoading} = useSelector((state) => state.category);
-    const shuffledCategories = [...categories].sort(() => Math.random() - 0.5);
-    console.log(Math.floor(Math.random * 1));
+    const shuffledCategories = [...categories].sort(() => Math.random() - 0.5).slice(0, 5);
     return (
     <>
         <div className="traineeship">
