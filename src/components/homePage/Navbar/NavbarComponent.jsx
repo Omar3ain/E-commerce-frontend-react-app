@@ -51,6 +51,9 @@ function NavbarComponent() {
           {user ? (
             <>
               <li>
+                <a href="/profile">Profile</a>
+              </li>
+              <li>
                 <a href="/" className={"btn btn-primary " + styles['background_btn']} onClick={onLogout}>
                   Logout
                 </a>
