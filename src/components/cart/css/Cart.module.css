@@ -1,4 +1,9 @@
-@media (max-width: 599px) {
+.total_amount{
+    color: #595630;
+}
+
+
+@media (max-width: 700px) {
     .total {
         display: flex;
         flex-direction: column;
@@ -6,7 +11,7 @@
     }
 }
 
-@media (min-width: 600px) {
+@media (min-width: 700px) {
     .total {
         display: flex;
         flex-direction: row;

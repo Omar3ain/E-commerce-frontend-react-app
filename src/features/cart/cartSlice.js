@@ -16,7 +16,7 @@ export const addToCart = createAsyncThunk(
     "cart/addToCart",
     async (productId, thunkAPI) => {
         try {
-            const token = thunkAPI.getState().auth.user.data.token;
+            const token = thunkAPI.getState().auth.user.token;
             return await cartService.addToCart(productId, token);
         } catch (error) {
             const message =
@@ -32,7 +32,7 @@ export const addToCart = createAsyncThunk(
 
 export const getCart = createAsyncThunk("cart/getCar t", async (_, thunkAPI) => {
     try {
-        const token = thunkAPI.getState().auth.user.data.token;
+        const token = thunkAPI.getState().auth.user.token;
         return await cartService.getCart(token);
     } catch (error) {
         const message =
@@ -50,7 +50,7 @@ export const decreaseQuantity = createAsyncThunk(
     "cart/decreaseQuantity",
     async (cartItemId, thunkAPI) => {
         try {
-            const token = thunkAPI.getState().auth.user.data.token;
+            const token = thunkAPI.getState().auth.user.token;
             return await cartService.decreaseQuantity(cartItemId, token);
         } catch (error) {
             const message =
@@ -69,7 +69,7 @@ export const increaseQuantity = createAsyncThunk(
     "cart/icreaseQuantity",
     async (cartItemId, thunkAPI) => {
         try {
-            const token = thunkAPI.getState().auth.user.data.token;
+            const token = thunkAPI.getState().auth.user.token;
             return await cartService.increaseQuantity(cartItemId, token);
         } catch (error) {
             const message =

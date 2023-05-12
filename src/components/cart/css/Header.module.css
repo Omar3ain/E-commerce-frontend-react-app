@@ -1,0 +1,13 @@
+.header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-left: 2rem;
+    border-bottom: 2px solid #ECE87D;
+}
+
+.cart {
+    font-family: "Sigmar", cursive !important;
+    font-size: 0.5rem;
+    color: #2D2A32;
+}

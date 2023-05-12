@@ -32,7 +32,7 @@ if (isLoading) {
 
   const total = cartItems.reduce((acc, item) => acc + item.product_id.price * item.quantity, 0);
   return (
-    <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', boxSizing: 'border-box' }}>
+    <Box className="container" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: 5, boxSizing: 'border-box' }}>
       <Container maxWidth="lg">
         <Grid container spacing={2}>
           {cartItems.map((item) => (
@@ -42,7 +42,7 @@ if (isLoading) {
           ))}
         </Grid>
         <Box className={styles['total']} sx={{ marginTop: 2 }}>
-            <Typography variant="h6" component="p" sx={{ marginBottom: { xs: 1, md: 0 }, marginRight: { xs: 0, md: 2 } }}>
+            <Typography variant="h6" component="p" sx={{ marginBottom: { xs: 1, md: 0 }, marginRight: { xs: 0, md: 2 } }} className={styles['total_amount']}>
               Total: ${total}
             </Typography>
             <Button variant="contained" sx={{ backgroundColor: '#DDD92A', '&:hover': { backgroundColor: '#85822E' }}} disabled={cartItems.length === 0}>
