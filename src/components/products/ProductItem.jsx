@@ -11,6 +11,7 @@ import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import styles from './css/product.module.css';
 import { Button } from '@mui/material';
 import { addToCart } from '../../features/cart/cartSlice';
+import { addToWishlist } from '../../features/wishlist/wishlistSlice';
 
 export default function ProductItem(props) {
 
@@ -23,7 +24,7 @@ export default function ProductItem(props) {
                     <CardMedia
                         component="img"
                         height="300"
-                        image={"http://127.0.0.1:8000/"+main_image}
+                        image={main_image}
                         alt="Paella dish"
                     />
 
@@ -33,7 +34,7 @@ export default function ProductItem(props) {
                         subheader={price}
                     />
                 <CardActions disableSpacing>
-                    <IconButton aria-label="add to wishlist" title='add to wishlist'>
+                    <IconButton aria-label="add to wishlist" title='add to wishlist' onClick={()=>{dispatch(addToWishlist(id))}}>
                         <FavoriteIcon />
                     </IconButton>
                 </CardActions>
