@@ -45,10 +45,31 @@ const logout = () => {
     localStorage.removeItem("user");
 };
 
+const updateUserInfo = async (userData, token, id) => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    const config = {
+        headers: {
+            'Content-Type': 'multipart/form-data',
+            'Authorization': `token ${token}`
+        },
+    };
+    const response = await axios.patch(
+        URL + `profile/${id}/`,
+        userData,
+        config
+    )
+    localStorage.setItem(
+        "user",
+        JSON.stringify({ ...user, ...response.data })
+    );
+    return response.data;
+};
+
 const authService = {
     login,
     register,
     logout,
+    updateUserInfo,
 };
 
 export default authService;
