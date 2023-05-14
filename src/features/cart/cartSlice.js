@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import cartService from './cartService';
-
+import { toast } from 'react-toastify';
 
 const initialState = {
     cartItems: [],
@@ -20,9 +20,7 @@ export const addToCart = createAsyncThunk(
             return await cartService.addToCart(productId, token);
         } catch (error) {
             const message =
-                (error.response &&
-                    error.response.data &&
-                    error.response.data.message) ||
+                error.response.data.error ||
                 error.message ||
                 error.toString();
             return thunkAPI.rejectWithValue(message);
@@ -36,9 +34,7 @@ export const getCart = createAsyncThunk("cart/getCart", async (_, thunkAPI) => {
         return await cartService.getCart(token);
     } catch (error) {
         const message =
-            (error.response &&
-                error.response.data &&
-                error.response.data.message) ||
+            error.response.data.error ||
             error.message ||
             error.toString();
         return thunkAPI.rejectWithValue(message);
@@ -54,9 +50,7 @@ export const decreaseQuantity = createAsyncThunk(
             return await cartService.decreaseQuantity(cartItemId, token);
         } catch (error) {
             const message =
-                (error.response &&
-                    error.response.data &&
-                    error.response.data.message) ||
+                error.response.data.error ||
                 error.message ||
                 error.toString();
             return thunkAPI.rejectWithValue(message);
@@ -73,9 +67,7 @@ export const increaseQuantity = createAsyncThunk(
             return await cartService.increaseQuantity(cartItemId, token);
         } catch (error) {
             const message =
-                (error.response &&
-                    error.response.data &&
-                    error.response.data.message) ||
+                error.response.data.error ||
                 error.message ||
                 error.toString();
             return thunkAPI.rejectWithValue(message);
@@ -104,6 +96,7 @@ const cartSlice = createSlice({
                 state.isError = false;
                 state.isSuccess = true;
                 state.cartItems = [...state.cartItems, action.payload];
+                toast.success("Product added successfully");
             })
             .addCase(addToCart.rejected, (state, action) => {
                 state.message = action.payload;
@@ -119,13 +112,15 @@ const cartSlice = createSlice({
                 state.isError = false;
                 state.isSuccess = true;
                 state.cartItems = action.payload.Cart;
+                toast.success("Cart retrieved successfully");
             })
             .addCase(getCart.rejected, (state, action) => {
-                state.message = action.payload.error;
+                state.message = action.payload;
                 state.isError = true;
                 state.isLoading = false;
                 state.isSuccess = false;
                 state.cartItems = [];
+                toast.error(state.message);
             })
             .addCase(decreaseQuantity.fulfilled, (state, action) => {
                 state.isLoading = false;
@@ -146,7 +141,9 @@ const cartSlice = createSlice({
             .addCase(decreaseQuantity.rejected, (state, action) => {
                 state.isLoading = false;
                 state.isError = true;
-                state.message = action.payload.error;
+                state.isSuccess = false;
+                state.message = action.payload;
+                toast.error(state.message);
             })
             .addCase(increaseQuantity.fulfilled, (state, action) => {
                 state.isLoading = false;
@@ -160,7 +157,9 @@ const cartSlice = createSlice({
             .addCase(increaseQuantity.rejected, (state, action) => {
                 state.isLoading = false;
                 state.isError = true;
-                state.message = action.payload.error;
+                state.isSuccess = false;
+                state.message = action.payload;
+                toast.error(state.message);
             })
 
     },

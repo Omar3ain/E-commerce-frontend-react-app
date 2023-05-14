@@ -4,20 +4,12 @@ import { Container, Grid, Box, Typography, Button } from '@mui/material';
 import CartItem from './CartItem';
 import styles from './css/Cart.module.css';
 import { getCart, decreaseQuantity, increaseQuantity } from '../../features/cart/cartSlice';
-import { toast } from 'react-toastify';
 
 const Cart = () => {
   const dispatch = useDispatch();
-  const { cartItems, isLoading, isError, message, isSuccess } = useSelector((store) => store.cart);
+  const { cartItems, isLoading } = useSelector((store) => store.cart);
 
   useEffect(() => {
-    // if(isError) {
-    //   toast.error(message);
-    // };
-
-    // if (isSuccess ) {
-    //   toast.success("cart retrieved successfully");
-    // }
     dispatch(getCart());
 }, [dispatch]);
 
