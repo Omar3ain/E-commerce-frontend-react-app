@@ -54,7 +54,7 @@ function Register() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { user, isLoading, isError, isSuccess, message } = useSelector(
+  const {  isLoading, isError, isRegisterSuccess, message } = useSelector(
     (state) => state.auth
   );
 
@@ -63,14 +63,14 @@ function Register() {
       toast.error(message);
     }
 
-    if (isSuccess || user) {
+    if (isRegisterSuccess) {
       toast.success("Registered successfully");
       setTimeout(() => {
-        navigate("/");
+        navigate("/login");
       }
       , 3000);
     }
-  }, [user, isError, isSuccess, message, navigate, dispatch]);
+  }, [ isError, isRegisterSuccess, message, navigate, dispatch]);
 
   const onChange = (e) => {
     if (e.target.name === "image") {
