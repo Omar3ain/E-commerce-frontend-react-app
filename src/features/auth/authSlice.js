@@ -41,9 +41,20 @@ export const updateUserInfo = createAsyncThunk("/updateUserInfo", async (user, t
         const id = thunkAPI.getState().auth.user.id;
         return await authService.updateUserInfo(user, token, id);
     } catch (error) {
-        console.log(error);
-        const message = (error.response && error.response.data && error.response.data.message) ||
-            error.message || error.toString();
+        let message = "";
+        const data = error.response.data;
+        if (Object.keys(data).length > 0) {
+            for (const field in data) {
+              const errorMessages = data[field];
+              for (const errorMessage of errorMessages) {
+                message += `${errorMessage}`;
+              }
+            }
+        }
+        else {
+            message = (error.response && error.response.data && error.response.data.message) ||
+                error.message || error.toString();
+        }
         return thunkAPI.rejectWithValue(message);
     }
 });
