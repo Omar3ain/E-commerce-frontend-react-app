@@ -15,8 +15,25 @@ export const addToWishlist = createAsyncThunk(
     async (productId, thunkAPI) => {
         try {
             const token = thunkAPI.getState().auth.user.token;
-            console.log(token);
             return await wishlistService.addToWishlist(productId, token);
+        } catch (error) {
+            const message =
+                (error.response &&
+                    error.response.data &&
+                    error.response.data.message) ||
+                error.message ||
+                error.toString();
+            return thunkAPI.rejectWithValue(message);
+        }
+    }
+);
+
+export const removeFromWishlist = createAsyncThunk(
+    "wishlist/removeWishlist",
+    async (productId, thunkAPI) => {
+        try {
+            const token = thunkAPI.getState().auth.user.token;
+            return await wishlistService.removeWishlist(productId, token);
         } catch (error) {
             const message =
                 (error.response &&
@@ -60,6 +77,13 @@ const wishlistSlice = createSlice({
                 state.isError = true;
                 state.isLoading = false;
                 state.isSuccess = false;
+            })
+            .addCase(removeFromWishlist.fulfilled, (state, action) => {
+                console.log(action);
+                
+            })
+            .addCase(removeFromWishlist.rejected, (state, action) => {
+                console.log(action);
             });
     },
 

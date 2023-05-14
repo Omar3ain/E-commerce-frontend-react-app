@@ -11,37 +11,40 @@ import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import styles from './css/product.module.css';
 import { Button } from '@mui/material';
 import { addToCart } from '../../features/cart/cartSlice';
-import { addToWishlist } from '../../features/wishlist/wishlistSlice';
 
 export default function ProductItem(props) {
 
     const dispatch = useDispatch();
-
-    const {id, name, description, main_image, price, quantity } = props.product;
+    const { id, name, description, main_image, price, quantity, inWishList } = props.product;
+    
     return (
 
         <Card sx={{ maxWidth: 345, position: 'relative' }} className={styles['card-item']}>
-                    <CardMedia
-                        component="img"
-                        height="300"
-                        image={main_image}
-                        alt="Paella dish"
-                    />
+            <CardMedia
+                component="img"
+                height="300"
+                image={main_image}
+                alt="Paella dish"
+            />
 
             <div className={styles['product-detail']}>
-                    <CardHeader
-                        title={name}
-                        subheader={price}
-                    />
+                <CardHeader
+                    title={name}
+                    subheader={price}
+                />
                 <CardActions disableSpacing>
-                    <IconButton aria-label="add to wishlist" title='add to wishlist' onClick={()=>{dispatch(addToWishlist(id))}}>
-                        <FavoriteIcon />
+                    {inWishList ? <IconButton aria-label="add to wishlist" title='remove from wishlist' onClick={() => { props.removeWishlist(id) }}>
+                        <FavoriteIcon style={{ color: '#cc0000' }} />
                     </IconButton>
+                        : <IconButton aria-label="add to wishlist" title='add to wishlist' onClick={() => { props.addWishlist(id) }}>
+                            <FavoriteIcon/>
+                        </IconButton>
+                    }
                 </CardActions>
             </div>
 
             {quantity === 0 ? <div className={styles['out-of-stock']}> <ErrorOutlineIcon /> Out of stock</div> : <div className={styles["overlay"]}>
-                <Button variant="contained" onClick={() => {dispatch(addToCart(id))}}>
+                <Button variant="contained" onClick={() => { dispatch(addToCart(id)) }}>
                     <ShoppingCartIcon />
                     add to cart</Button>
             </div>}
