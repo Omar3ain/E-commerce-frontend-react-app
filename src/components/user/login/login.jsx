@@ -38,6 +38,7 @@ function ModeToggle() {
 }
 
 function Login() {
+  const AdminURL = 'http://127.0.0.1:8000/admin/'
   const dispatch = useDispatch();
   const navigate = useNavigate();
   
@@ -51,7 +52,13 @@ function Login() {
 
   useEffect(() => {
     if (isSuccess || user) {
-      toast.success("Logged in successfully");
+      // if(user.isAdmin){
+      //   toast.success("Logged in successfully as admin");
+      //   setTimeout(() => {
+      //     // window.location.assign(AdminURL);
+      //   }
+      //   , 2000);
+      // }
       setIsLoggedIn(true);
     }
     if (isError) {
@@ -70,7 +77,10 @@ function Login() {
   };
 
   if (isLoggedIn) {
-    navigate("/");
+    toast.success("Logged in successfully");
+    setTimeout(() => {
+      navigate("/");
+    }, 2000);
   }
 
   return (

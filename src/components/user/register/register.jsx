@@ -74,7 +74,6 @@ function Register() {
 
   const onChange = (e) => {
     if (e.target.name === "image") {
-      console.log("image: ", e.target.files[0]);
       setFormData((prevState) => ({
         ...prevState,
         image: e.target.files[0],
