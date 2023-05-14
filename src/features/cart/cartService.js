@@ -21,7 +21,7 @@ const getCart = async (token) => {
         },
     };
     const response = await axios.get(url, config);
-    return response.data.Cart;
+    return response.data;
 };
 
 const decreaseQuantity = async (cartItemId, token) => {
@@ -40,7 +40,7 @@ const increaseQuantity = async (cartItemId, token) => {
             Authorization: `token ${token}`,
         },
     };
-    const response = await axios.put(url + "add/" + cartItemId, {}, config);
+    const response = await axios.put(url + "add/" + cartItemId, config);
     return response.data;
 };
 

@@ -12,7 +12,7 @@ const CartItem = ({ item, decreaseQuantityHandler, increaseQuantityHandler }) =>
         component="img"
         sx={{ width: 110, height: 110, objectFit: 'contain'}}
         image={item.product_id.main_image}
-        alt={item.name}
+        alt={item.product_id.name}
       />
       
       <CardContent sx={{  flex: 1, display: 'flex', alignItems: 'center', color: '#85822E' }} className={styles['card-content']}>

@@ -30,7 +30,7 @@ export const addToCart = createAsyncThunk(
     }
 );
 
-export const getCart = createAsyncThunk("cart/getCar t", async (_, thunkAPI) => {
+export const getCart = createAsyncThunk("cart/getCart", async (_, thunkAPI) => {
     try {
         const token = thunkAPI.getState().auth.user.token;
         return await cartService.getCart(token);
@@ -117,10 +117,11 @@ const cartSlice = createSlice({
             .addCase(getCart.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.isError = false;
-                state.cartItems = action.payload;
+                state.isSuccess = true;
+                state.cartItems = action.payload.Cart;
             })
             .addCase(getCart.rejected, (state, action) => {
-                state.message = action.payload;
+                state.message = action.payload.error;
                 state.isError = true;
                 state.isLoading = false;
                 state.isSuccess = false;
@@ -145,7 +146,7 @@ const cartSlice = createSlice({
             .addCase(decreaseQuantity.rejected, (state, action) => {
                 state.isLoading = false;
                 state.isError = true;
-                state.message = action.payload;
+                state.message = action.payload.error;
             })
             .addCase(increaseQuantity.fulfilled, (state, action) => {
                 state.isLoading = false;
@@ -159,7 +160,7 @@ const cartSlice = createSlice({
             .addCase(increaseQuantity.rejected, (state, action) => {
                 state.isLoading = false;
                 state.isError = true;
-                state.message = action.payload;
+                state.message = action.payload.error;
             })
 
     },
