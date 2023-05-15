@@ -59,12 +59,12 @@ function Register() {
   );
 
   useEffect(() => {
-    if (isError) {
-      toast.error(message);
-    }
+    // if (isError) {
+    //   toast.error(message);
+    // }
 
     if (isRegisterSuccess) {
-      toast.success("Registered successfully");
+      // toast.success("Registered successfully");
       setTimeout(() => {
         navigate("/login");
       }

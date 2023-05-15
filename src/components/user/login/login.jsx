@@ -61,9 +61,9 @@ function Login() {
       // }
       setIsLoggedIn(true);
     }
-    if (isError) {
-      toast.error(message);
-    }
+    // if (isError) {
+    //   toast.error(message);
+    // }
   }, [dispatch, isSuccess, isError]);
   
   const submitHandler = () => {
@@ -77,7 +77,7 @@ function Login() {
   };
 
   if (isLoggedIn) {
-    toast.success("Logged in successfully");
+    // toast.success("Logged in successfully");
     setTimeout(() => {
       navigate("/");
     }, 2000);

@@ -26,7 +26,6 @@ import {
   MDBModalHeader,
   MDBModalTitle,
   MDBModalBody,
-  MDBModalFooter,
 } from "mdb-react-ui-kit";
 
 function calculateAge(dob) {
@@ -45,6 +44,7 @@ function Profile() {
   const [varyingModal, setVaryingModal] = useState(false);
   const [varyingRecipient, setVaryingRecipient] = useState("");
   const [varyingMessage, setVaryingMessage] = useState("");
+  const [imageName, setImageName] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -54,19 +54,10 @@ function Profile() {
 
   const age = calculateAge(user.dob);
 
-  const onChangeRecipient = (event) => {
-    setVaryingRecipient(event.target.value);
-  };
-
-  const onChangeMessage = (event) => {
-    setVaryingMessage(event.target.value);
-  };
-
   const [formData, setFormData] = useState({
     name: user.name,
     username: user.username,
     email: user.email,
-    // password: user.password,
     phone: user.phone,
     address: user.address,
     dob: user.dob,
@@ -76,12 +67,13 @@ function Profile() {
   const { name, username, email, phone, address, dob, image } = formData; // password,
 
   useEffect(() => {
-    if (isError) {
-      toast.error(message);
-    }
+    // if (isError) {
+    //   toast.error(message);
+    // }
 
     if (isSuccess) {
-      toast.success("Updated successfully");
+      // toast.success("Updated successfully");
+      setImageName('');
       setTimeout(() => {
         navigate("/profile");
       }, 3000);
@@ -94,6 +86,7 @@ function Profile() {
         ...prevState,
         image: e.target.files[0],
       }));
+      setImageName(e.target.files[0].name);
     } else {
       setFormData((prevState) => ({
         ...prevState,
@@ -105,7 +98,6 @@ function Profile() {
   const onSubmit = (e) => {
     e.preventDefault();
     if (!name || !username || !email) {
-      // !password
       alert("Please fill out all required fields");
       return;
     }
@@ -120,10 +112,6 @@ function Profile() {
       form_data.append("email", email);
     }
 
-    // form_data.append("name", name);
-    // form_data.append("username", username);
-    // form_data.append("email", email);
-    // form_data.append("password", password);
     if (phone != user.phone) {
       console.log("Phone", phone);
       form_data.append("phone", phone);
@@ -157,28 +145,21 @@ function Profile() {
           <MDBRow className="justify-content-center align-items-center h-100">
             <MDBCol lg="9" xl="7">
               <MDBCard>
-                <div
-                  className="rounded-top text-white d-flex flex-row"
-                  style={{ backgroundColor: "#000", height: "200px" }}
-                >
-                  <div
-                    className="ms-4 mt-5 d-flex flex-column"
-                    style={{ width: "150px" }}
-                  >
-                    <MDBCardImage
-                      src={user.image}
-                      alt="Generic placeholder image"
-                      className="mt-4 mb-2 img-thumbnail"
-                      fluid
-                      style={{ width: "150px", height: "100%", zIndex: "1" }}
-                    />
+                <div className="rounded-top text-white d-flex flex-row"
+                  style={{ backgroundColor: "#595630", height: "200px" }} >
+                  
+                  <div className="ms-4 mt-4 d-flex flex-column"
+                    style={{ width: "150px" }} >
                     <MDBBtn
-                      outline
-                      color="dark"
+                      // color="dark"
+                      // className="btn btn-primary"
                       style={{
                         height: "36px",
+                        color: "#000",
                         zIndex: "1",
                         overflow: "visible",
+                        position: "sticky",
+                        backgroundColor: "#DDD92A"
                       }}
                       onClick={() => {
                         setVaryingState("@mdo");
@@ -188,6 +169,14 @@ function Profile() {
                     >
                       Edit profile
                     </MDBBtn>
+                    <MDBCardImage
+                      src={user.image}
+                      alt="Generic placeholder image"
+                      className="mt-2 mb-2 img-thumbnail"
+                      fluid
+                      style={{ width: "100%", height: "100%", zIndex: "1" }}
+                    />
+                    
 
                     <MDBModal
                       show={varyingModal}
@@ -199,7 +188,7 @@ function Profile() {
                           <MDBModalHeader>
                             <MDBModalTitle>
                               New message to {varyingState}
-                            </MDBModalTitle>
+                            </MDBModalTitle> 
                             <MDBBtn
                               className="btn-close"
                               color="none"
@@ -214,14 +203,14 @@ function Profile() {
                                 flexDirection: "column",
                                 alignItems: "center",
                               }}
-                            >
+                              >
                               <Box
                                 component="form"
                                 noValidate
                                 onSubmit={onSubmit}
                                 sx={{ mt: 3 }}
                                 encType="multipart/form-data"
-                              >
+                                >
                                 <Grid container spacing={2}>
                                   <Grid item xs={12} sm={6}>
                                     <TextField
@@ -298,9 +287,13 @@ function Profile() {
                                     <label htmlFor="image">
                                       <Typography
                                         variant="h6"
-                                        sx={{ marginRight: 4, color: "#000" }}
+                                        sx={{ marginRight: 4,
+                                              color: imageName ? "#007711" : "#000",
+                                              fontWeight: "normal",
+                                              "&:hover": { fontWeight: "bold" }
+                                            }}
                                       >
-                                        Upload Image
+                                        {imageName ? imageName : "Upload Image"}
                                       </Typography>
                                     </label>
                                     <input
@@ -310,6 +303,7 @@ function Profile() {
                                       type="file"
                                       onChange={onChange}
                                     />
+                                    
                                   </Grid>
                                 </Grid>
                                 <Button
@@ -324,15 +318,6 @@ function Profile() {
                               <ToastContainer />
                             </Box>
                           </MDBModalBody>
-                          <MDBModalFooter>
-                            <MDBBtn
-                              color="secondary"
-                              onClick={() => setVaryingModal(!varyingModal)}
-                            >
-                              Close
-                            </MDBBtn>
-                            <MDBBtn>Save changes</MDBBtn>
-                          </MDBModalFooter>
                         </MDBModalContent>
                       </MDBModalDialog>
                     </MDBModal>
@@ -344,46 +329,13 @@ function Profile() {
                 </div>
                 <div
                   className="p-4 text-black"
-                  style={{ backgroundColor: "#f8f9fa" }}
+                  style={{ backgroundColor: "#EEEFA8" }}
                 >
-                  <div className="d-flex justify-content-end text-center py-1">
-                    <div>
-                      <MDBCardText className="mb-1 h5"></MDBCardText>
-                      <MDBCardText className="small text-muted mb-0"></MDBCardText>
-                    </div>
-                    <div className="px-3">
-                      <MDBCardText className="mb-1 h5">1026</MDBCardText>
-                      <MDBCardText className="small text-muted mb-0">
-                        Followers
-                      </MDBCardText>
-                    </div>
-                    <div>
-                      <MDBCardText className="mb-1 h5">478</MDBCardText>
-                      <MDBCardText className="small text-muted mb-0">
-                        Following
-                      </MDBCardText>
-                    </div>
-                  </div>
+                  
                 </div>
-                <MDBCardBody>
-                  {/* <MDBRow>
-                  <MDBCol sm="3">
-                    <MDBCardText>Full Name</MDBCardText>
-                  </MDBCol>
-                  <MDBCol sm="9">
-                    <MDBCardText className="text-muted">Johnatan Smith</MDBCardText>
-                  </MDBCol>
-                </MDBRow>
-                <hr />
-                <MDBRow>
-                  <MDBCol sm="3">
-                    <MDBCardText>Username</MDBCardText>
-                  </MDBCol>
-                  <MDBCol sm="9">
-                    <MDBCardText className="text-muted">example</MDBCardText>
-                  </MDBCol>
-                </MDBRow>
-                <hr /> */}
+                <MDBCardBody 
+                  style={{ backgroundColor: "#EEEFA8" }}
+                >
                   <MDBRow>
                     <MDBCol sm="3">
                       <MDBCardText>Email</MDBCardText>
