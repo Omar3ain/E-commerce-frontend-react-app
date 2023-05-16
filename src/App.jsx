@@ -28,6 +28,7 @@ function App() {
         <Route path="/products" element={<pages.Products />} />
         <Route path="/register" element={<Register />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/wishlist" element={<pages.Wishlist />} />
         <Route path="/payment" element={<Stripe />} />
         <Route path="/success" element={<PaymentSuccess />} />
       </Routes>
