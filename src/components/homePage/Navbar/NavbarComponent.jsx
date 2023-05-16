@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 import { logout } from "../../../features/auth/authSlice";
 import { useSelector, useDispatch } from "react-redux";
 
-
 function NavbarComponent() {
   const [active, setActive] = useState(false);
   const { user } = useSelector((state) => state.auth);
@@ -40,13 +39,10 @@ function NavbarComponent() {
           className={`${styles["list"]} ${active ? styles["isActive"] : ""} ${
             active ? styles["newClass"] : "" }`}>
           <li>
-            <a href="#home">Home</a>
+            <a href="/">Home</a>
           </li>
           <li>
-            <a href="#features">Products</a>
-          </li>
-          <li>
-            <a href="#pricing">Pricing</a>
+            <a href="/products">Products</a>
           </li>
           {user ? (
             <>

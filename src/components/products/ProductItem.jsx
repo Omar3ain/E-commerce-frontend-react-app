@@ -12,9 +12,10 @@ import styles from './css/product.module.css';
 import { Button } from '@mui/material';
 import { addToCart } from '../../features/cart/cartSlice';
 import { addToWishlist, removeFromWishlist } from '../../features/wishlist/wishlistSlice';
+import { useNavigate } from "react-router-dom";
 
 export default function ProductItem(props) {
-
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const { id, name, description, main_image, price, quantity } = props.product;
 
@@ -24,16 +25,19 @@ export default function ProductItem(props) {
 
         <Card sx={{ maxWidth: 345, position: 'relative' }} className={styles['card-item']}>
             <CardMedia
+                
                 component="img"
                 height="300"
                 image={main_image}
                 alt={name}
             />
 
-            <div className={styles['product-detail']}>
+            <div className={styles['product-detail']} > 
                 <CardHeader
+                    onClick={()=>{ navigate(`/products/${id}/product`)}}
                     title={name}
                     subheader={price}
+                    style={{ cursor: 'pointer' }}
                 />
                 <CardActions disableSpacing>
                     <IconButton aria-label="remove from wishlist" title={props.inWishList ? 'remove from wishlist' : 'add to wishlist'}

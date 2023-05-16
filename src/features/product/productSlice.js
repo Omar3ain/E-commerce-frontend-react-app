@@ -4,6 +4,7 @@ import axios from 'axios';
 
 const initialState = {
   products: [],
+  product:{},
   page: 1,
   isLoading: true,
 }
@@ -34,6 +35,31 @@ async (categoryId, thunkAPI) => {
   }
 )
 
+export const getProductById = createAsyncThunk('products/getProductDetails',
+async (productId, thunkAPI) => {
+
+  let config={};
+  let url= `http://localhost:8000/products/${productId}`;
+  
+  if (thunkAPI.getState().auth.user !== null) {
+      const token = thunkAPI.getState().auth.user.token;
+      config = {
+        headers: {
+          Authorization: `token ${token}`,
+        },
+      };
+    }
+
+    try {
+      const resp = await axios(url, config);
+      return resp.data;
+    } catch (error) {
+      const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+)
+
 const productSlice = createSlice({
   name: 'product',
   initialState,
@@ -48,6 +74,16 @@ const productSlice = createSlice({
         state.products = action.payload;
       })
       .addCase(getProducts.rejected, (state, action) => {
+        state.isLoading = false;
+      })
+      .addCase(getProductById.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getProductById.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.product = action.payload;
+      })
+      .addCase(getProductById.rejected, (state, action) => {
         state.isLoading = false;
       });
   },

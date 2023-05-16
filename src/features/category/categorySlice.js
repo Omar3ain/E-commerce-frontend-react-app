@@ -7,6 +7,7 @@ const initialState = {
     categories:[],
     page:1,
     isLoading:true,
+    isError: false,
 }
 
 export const getCategories = createAsyncThunk('categories/getCategoryItem',
@@ -31,12 +32,12 @@ const categorySlice = createSlice({
             state.isLoading = true;
           })
           .addCase(getCategories.fulfilled, (state, action) => {
-
             state.isLoading = false;
             state.categories = action.payload;
           })
           .addCase(getCategories.rejected, (state, action) => {
             state.isLoading = false;
+            state.isError = true;
           });
       },
 
