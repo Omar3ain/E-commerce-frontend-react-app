@@ -3,10 +3,11 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
-
+import ListSubheader from '@mui/material/ListSubheader';
+import CategoryFilter from './CategoryFilter'
 const drawerWidth = 150;
 
-export default function Categories() {
+export default function Filters() {
 
     return (
         <>
@@ -14,17 +15,17 @@ export default function Categories() {
                 sx={{
                     width: drawerWidth,
                     flexShrink: 0,   
+                    padding:1,
                 }}
                 variant="permanent"
                 anchor="left"
+                subheader={
+                    <ListSubheader component="div" id="nested-list-subheader">
+                        Filters
+                    </ListSubheader>
+                }
                 >
-                {['category 1', 'category 2', 'category 3'].map((cat, index) => (
-                    <ListItem key={cat} disablePadding>
-                        <ListItemButton>
-                            <ListItemText primary={cat} />
-                        </ListItemButton>
-                    </ListItem>
-                ))}
+                <CategoryFilter/>
             </List>
         </>
     );
