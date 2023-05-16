@@ -85,13 +85,13 @@ export default function CheckoutForm() {
   }
 
   return (
-    <form id={styles['payment-form']} onSubmit={handleSubmit}>
+    <form id={styles['payment-form']} className={styles['form']} onSubmit={handleSubmit}>
       <LinkAuthenticationElement
         id="link-authentication-element"
         onChange={(e) => setEmail(e.target.value)}
       />
       <PaymentElement id={styles['payment-element']} options={paymentElementOptions} />
-      <button disabled={isLoading || !stripe || !elements} id="submit">
+      <button disabled={isLoading || !stripe || !elements} id="submit" className={styles['button']}>
         <span id="button-text">
           {isLoading ? <div className={styles['spinner']} id={styles['spinner']}></div> : "Pay now"}
         </span>

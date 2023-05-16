@@ -12,7 +12,7 @@ const Wishlist= () => {
 
     useEffect(() => {
         dispatch(getWishlist());
-    }, [dispatch]);
+    }, []);
 
     if (isLoading) {
         return (
