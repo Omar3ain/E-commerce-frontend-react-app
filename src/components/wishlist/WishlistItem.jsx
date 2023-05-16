@@ -34,7 +34,7 @@ const WishlistItem = ({ item }) => {
                         <Button variant="contained" onClick={() => { dispatch(addToCart(item.product.id)) }} style={{ backgroundColor: 'white', color: '#85822E' }}>
                             <ShoppingCartIcon />
                             add to cart</Button>
-                        <Button variant="contained" onClick={() => { dispatch(removeFromWishlist(item.product.id)) }} style={{ backgroundColor: 'white', color: '#85822E', marginLeft:'1rem' }}>
+                        <Button variant="contained" onClick={() => { dispatch(removeFromWishlist(item.product.id)) }} title="remove item" style={{ backgroundColor: 'white', color: '#85822E', marginLeft:'1rem' }}>
                             <DeleteOutlineIcon />
                         </Button>
                     </Box>

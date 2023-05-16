@@ -4,6 +4,9 @@ import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from "./CheckoutForm";
 import { useDispatch, useSelector } from "react-redux";
 import { checkout } from "../../features/stripe/stripeSlice";
+import { useLocation } from 'react-router-dom';
+import Invoice from "./Invoice";
+import { Box } from "@mui/material";
 
 
 // Make sure to call loadStripe outside of a component’s render to avoid
@@ -13,31 +16,36 @@ import { checkout } from "../../features/stripe/stripeSlice";
 // Sign in to see your own test API key embedded in code samples.
 const stripePromise = loadStripe("pk_test_51LBME2GWaIxWiKnbH9WCVVVXWKffLjTDd5xm99IZRkeLceBHNuTaIJxAh3hRwaEvdT6Q0iIrtpUPeQ0ycd70CRyd00XSGRA46x");
 
-const Stripe = ({id}) => {
+const Stripe = () => {
+  // const { order, isLoading } = useSelector((store) => store.order);
+  const location = useLocation();
+  const order = location.state.order;
+  const orderItems = location.state.orderItems;
+  const dispatch = useDispatch();
+  const { clientSecret } = useSelector((store) => store.stripe);
 
-    const dispatch = useDispatch();
-    const { clientSecret } = useSelector((store) => store.stripe);
+  useEffect(() => {
+    console.log(location);
+    dispatch(checkout(order.id));
+  }, [dispatch])
 
-    useEffect(()=>{
-        dispatch(checkout(id));
-    },[dispatch])
-  
-    const appearance = {
-      theme: 'stripe',
-    };
-    const options = {
-      clientSecret,
-      appearance,
-    };
+  const appearance = {
+    theme: 'stripe',
+  };
+  const options = {
+    clientSecret,
+    appearance,
+  };
 
   return (
-    <>
-    {clientSecret && (
+    <Box sx={{ display: 'flex', justifyContent: 'space-around' }}>
+      {clientSecret && (
         <Elements options={options} stripe={stripePromise}>
           <CheckoutForm />
         </Elements>
       )}
-    </>
+      <Invoice order={order} orderItems={orderItems} />
+    </Box>
   )
 }
 export default Stripe;

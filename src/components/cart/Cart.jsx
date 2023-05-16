@@ -4,6 +4,7 @@ import { Container, Grid, Box, Typography, Button } from '@mui/material';
 import CartItem from './CartItem';
 import styles from './css/Cart.module.css';
 import { getCart, decreaseQuantity, increaseQuantity } from '../../features/cart/cartSlice';
+import { useNavigate } from 'react-router-dom';
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -30,8 +31,9 @@ if (isLoading) {
   )
 }
 
-  const total = cartItems.length > 0 ? cartItems.reduce((acc, item) => acc + item.product_id.price * item.quantity, 0): 0;
-  return (
+const total = cartItems.length > 0 ? cartItems.reduce((acc, item) => acc + item.product_id.price * item.quantity, 0): 0;
+// const navigate = useNavigate();
+return (
     <Box className="container" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: 5, boxSizing: 'border-box' }}>
       <Container maxWidth="lg">
         <Grid container spacing={2}>
@@ -54,7 +56,9 @@ if (isLoading) {
               Total: ${total}
             </Typography>
             <Button variant="contained" sx={{ backgroundColor: '#DDD92A', '&:hover': { backgroundColor: '#85822E' }}} disabled={cartItems.length === 0}>
-              Place Order
+              <a href="/order" style={{textDecoration:'none',color:'#fff'}}>
+                 Place Order
+                </a>
             </Button>
         </Box>
       </Container>
