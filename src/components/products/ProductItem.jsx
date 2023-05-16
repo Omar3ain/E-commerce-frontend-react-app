@@ -11,12 +11,15 @@ import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import styles from './css/product.module.css';
 import { Button } from '@mui/material';
 import { addToCart } from '../../features/cart/cartSlice';
+import { addToWishlist, removeFromWishlist } from '../../features/wishlist/wishlistSlice';
 
 export default function ProductItem(props) {
 
     const dispatch = useDispatch();
-    const { id, name, description, main_image, price, quantity, inWishList } = props.product;
-    
+    const { id, name, description, main_image, price, quantity } = props.product;
+
+    const addWishlist = (id) => { dispatch(addToWishlist(id)) }
+    const removeWishlist = (id) => dispatch(removeFromWishlist(id))
     return (
 
         <Card sx={{ maxWidth: 345, position: 'relative' }} className={styles['card-item']}>
@@ -24,7 +27,7 @@ export default function ProductItem(props) {
                 component="img"
                 height="300"
                 image={main_image}
-                alt="Paella dish"
+                alt={name}
             />
 
             <div className={styles['product-detail']}>
@@ -33,13 +36,10 @@ export default function ProductItem(props) {
                     subheader={price}
                 />
                 <CardActions disableSpacing>
-                    {inWishList ? <IconButton aria-label="add to wishlist" title='remove from wishlist' onClick={() => { props.removeWishlist(id) }}>
-                        <FavoriteIcon style={{ color: '#cc0000' }} />
+                    <IconButton aria-label="remove from wishlist" title={props.inWishList ? 'remove from wishlist' : 'add to wishlist'}
+                        onClick={props.inWishList ? () => { removeWishlist(id) } : () => { addWishlist(id) }}>
+                        <FavoriteIcon style={props.inWishList ? { color: '#cc0000' } : {}} />
                     </IconButton>
-                        : <IconButton aria-label="add to wishlist" title='add to wishlist' onClick={() => { props.addWishlist(id) }}>
-                            <FavoriteIcon/>
-                        </IconButton>
-                    }
                 </CardActions>
             </div>
 
