@@ -6,13 +6,13 @@ import { getProducts } from "../../features/product/productSlice";
 import Categories from "../../components/category/Categories";
 import ProductItem from "../../components/products/index.js";
 import { getWishlist } from "../../features/wishlist/wishlistSlice";
-
+import { useParams } from 'react-router-dom';
 
 const Products = () => {
-    const dispatch = useDispatch()
-
+    const dispatch = useDispatch();
+    const { categoryId } = useParams();
     useEffect(() => {
-        dispatch(getProducts())
+        dispatch(getProducts(categoryId))
         dispatch(getWishlist())
     }, [dispatch])
 

@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-const url = 'http://localhost:8000/products';
+let url = 'http://localhost:8000/products';
 
 const initialState = {
   products: [],
@@ -10,8 +10,8 @@ const initialState = {
 }
 
 export const getProducts = createAsyncThunk('products/getProductItem',
-async (name, thunkAPI) => {
-  
+async (categoryId, thunkAPI) => {
+
   let config={};
   if (thunkAPI.getState().auth.user !== null) {
       const token = thunkAPI.getState().auth.user.token;
@@ -21,6 +21,7 @@ async (name, thunkAPI) => {
         },
       };
     }
+    if(categoryId) url= `http://localhost:8000/products/${categoryId}/get`;
     try {
       const resp = await axios(url, config);
       return resp.data;
