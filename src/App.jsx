@@ -11,6 +11,8 @@ import Register from "./components/user/register/register";
 import NavbarComponent from "./components/homePage/Navbar/NavbarComponent";
 import CartRoutes from "./pages/CartPage/CartRoutes";
 import Products from "./pages/ProductsPage/Products";
+import Stripe from './components/stripePayment/Stripe';
+import PaymentSuccess from './components/stripePayment/PaymentSuccess';
 function App() {
   return (
     <>
@@ -26,6 +28,8 @@ function App() {
         <Route path="/products" element={<pages.Products />} />
         <Route path="/register" element={<Register />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/payment" element={<Stripe />} />
+        <Route path="/success" element={<PaymentSuccess />} />
       </Routes>
       <ToastContainer />
     </BrowserRouter>
