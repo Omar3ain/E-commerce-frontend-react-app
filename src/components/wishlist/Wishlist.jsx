@@ -1,6 +1,6 @@
 
 import { Container, Grid, Box, Typography } from '@mui/material';
-import WishlistItem from './wishlistItem';
+import WishlistItem from './WishlistItem';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { getWishlist } from '../../features/wishlist/wishlistSlice';

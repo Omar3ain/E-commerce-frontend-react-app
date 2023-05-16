@@ -1,5 +1,5 @@
 import Wishlist from "../../components/wishlist/Wishlist"
-import Header from "../../components/wishlist/header"
+import Header from "../../components/wishlist/Header"
 
 const WishlistPage = () => {
     return (
