@@ -10,7 +10,7 @@ import Register from "./components/user/register/register";
 
 import NavbarComponent from "./components/homePage/Navbar/NavbarComponent";
 import CartRoutes from "./pages/CartPage/CartRoutes";
-import Products from "./pages/ProductsPage/Products";
+import  ProductsRoutes from "./pages/ProductsPage/ProductsRoutes";
 import Stripe from './components/stripePayment/Stripe';
 import PaymentSuccess from './components/stripePayment/PaymentSuccess';
 function App() {
@@ -25,7 +25,7 @@ function App() {
         <Route path="" element={<pages.HomePage />} />
         <Route path="/cart/*" element={<CartRoutes />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/products/:categoryId?" element={<pages.Products />} />
+        <Route path="/products/*" element={< ProductsRoutes />} />
         <Route path="/register" element={<Register />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/wishlist" element={<pages.Wishlist />} />
