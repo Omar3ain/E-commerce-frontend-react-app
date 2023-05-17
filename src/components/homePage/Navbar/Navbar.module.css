@@ -13,6 +13,7 @@
 .navContainer ul {
   display: flex;
   list-style: none;
+  align-items: center;
 }
 .navContainer ul li{
   margin-left: 1rem;
@@ -67,6 +68,11 @@
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
+}
+.list p {
+  margin: 0;
+  font-size: 1.1em;
+  cursor: pointer;
 }
 
 .menu .bar1,
@@ -127,7 +133,8 @@
     padding: 0;
     z-index: 4;
     margin-top: 185px;
-    font-size: 30px;
+    font-size: 25px !important;
   }
+
 }
 

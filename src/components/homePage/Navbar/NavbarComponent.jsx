@@ -4,10 +4,19 @@ import styles from "./Navbar.module.css";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../../../features/auth/authSlice";
 import { useSelector, useDispatch } from "react-redux";
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 function NavbarComponent() {
   const [active, setActive] = useState(false);
   const { user } = useSelector((state) => state.auth);
+  const {cartItems } = useSelector((state) => state.cart);
+  let cart = cartItems.reduce((acc, cur) => {
+    if (!acc.find(item => item.id === cur.id)) {
+      acc.push(cur);
+    }
+    return acc;
+  }, []);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const onLogout = () => {
@@ -39,15 +48,24 @@ function NavbarComponent() {
           className={`${styles["list"]} ${active ? styles["isActive"] : ""} ${
             active ? styles["newClass"] : "" }`}>
           <li>
-            <a href="/">Home</a>
+            <p onClick={() => navigate("/")}>Home</p>
           </li>
           <li>
-            <a href="/products">Products</a>
+            <p onClick={() => navigate("/products")}>Products</p>
           </li>
           {user ? (
             <>
               <li>
-                <a href="/profile">Profile</a>
+                <p onClick={() => navigate("/profile")}>Profile</p>
+              </li>
+              <li>
+              <div>
+                <ShoppingCartIcon onClick={() => navigate("/cart")}  style={{ cursor: 'pointer'}}/>
+                {cart.length > 0 && <span>{cart.length}</span>}
+              </div>
+              </li>
+              <li>
+                <FavoriteIcon  onClick={() => navigate("/wishlist")} style={{ cursor: 'pointer' , color: '#ece87d' }}/>
               </li>
               <li>
                 <a href="/" className={"btn btn-primary " + styles['background_btn']} onClick={onLogout}>
