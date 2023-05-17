@@ -14,6 +14,7 @@ import ProductsRoutes from "./pages/ProductsPage/ProductsRoutes";
 import Stripe from './components/stripePayment/Stripe';
 import PaymentSuccess from './components/stripePayment/PaymentSuccess';
 import Order from './components/order/Order';
+import PaymentFail from './components/stripePayment/PaymentFail';
 function App() {
   return (
     <>
@@ -33,6 +34,7 @@ function App() {
           <Route path="/order" element={<Order />} />
           <Route path="/payment" element={<Stripe />} />
           <Route path="/success" element={<PaymentSuccess />} />
+          <Route path="/fail" element={<PaymentFail />} />
         </Routes>
         <ToastContainer />
       </BrowserRouter>

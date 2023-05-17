@@ -1,11 +1,11 @@
 import { Card,  CardContent, Typography  } from '@mui/material';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import ErrorIcon from '@mui/icons-material/Error';
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { useEffect } from 'react';
 
 
-const PaymentSuccess = () => {
+const PaymentFail = () => {
 
   const {token} = useSelector((store) => store.auth.user);
 
@@ -27,25 +27,25 @@ const PaymentSuccess = () => {
     if(orderId){
       updatePaymentStatus();
     }
-  }, [])
-  
+  }, []);
+
   return (
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '70vh' }}>
       <Card style={{ width: '80%', maxWidth: '600px', backgroundColor: '#feffc8e0' }}>
         <CardContent style={{ textAlign: 'center' }}>
-          <CheckCircleIcon style={{ fontSize: '80px', color: 'green', marginBottom: '20px' }} />
+          <ErrorIcon style={{ fontSize: '80px', color: 'red', marginBottom: '20px' }} />
           <Typography variant="h3" component="h2" style={{ marginBottom: '20px', color: '#29262D' }}>
-            Payment Successful
+            Payment Failed
           </Typography>
           <Typography color="textSecondary" style={{ marginBottom: '20px' }}>
-            Thank you for your purchase! We appreciate your business and look forward to serving you again soon.
+            Sorry, your payment could not be processed at this time. Please check your payment details and try again later.
           </Typography>
           <Typography variant="h6" component="h3" style={{ marginTop: '20px', color: '#595630' }}>
-            Don't forget to check out our other great products!
+            If the problem persists, please contact customer support.
           </Typography>
         </CardContent>
       </Card>
     </div>
   )
 }
-export default PaymentSuccess;
+export default PaymentFail;

@@ -41,7 +41,7 @@ const Stripe = () => {
     <Box sx={{ display: 'flex', justifyContent: 'space-around' }}>
       {clientSecret && (
         <Elements options={options} stripe={stripePromise}>
-          <CheckoutForm />
+          <CheckoutForm orderId={order.id}/>
         </Elements>
       )}
       <Invoice order={order} orderItems={orderItems} />
