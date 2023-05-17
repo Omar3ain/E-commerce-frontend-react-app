@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 const initialState = {
     order: {},
     orderItems: [],
+    userOrders: [],
     isSuccess: false,
     isError: false,
     isLoading: true,
@@ -43,6 +44,22 @@ export const deleteOrder = createAsyncThunk(
     }
 );
 
+export const getOrders = createAsyncThunk(
+    "order/get",
+    async (_,thunkAPI) => {
+        try {
+            const token = thunkAPI.getState().auth.user.token;
+            return await orderService.getOrders(token);
+        } catch (error) {
+            console.log(error);
+            const message =
+            error.response.data.error ||
+            error.message ||
+            error.toString();
+        return thunkAPI.rejectWithValue(message);
+        }
+    }
+)
 const orderSlice = createSlice({
     name: 'order',
     initialState,
@@ -62,24 +79,41 @@ const orderSlice = createSlice({
 
             })
             .addCase(placeOrder.rejected, (state, action) => {
-                console.log(action);
                 state.message = action.payload;
                 state.isError = true;
                 state.isLoading = false;
                 state.isSuccess = false;
-                state.cart = {}
-                state.cartItems = []
+                state.order = {}
+                state.orderItems = []
                 toast.error(state.message)
             })
             .addCase(deleteOrder.fulfilled, (state, action) => {
                 state.isLoading = false;
-                console.log(action.payload);
-                //when we get all user orders -> remove this order
+                const index = state.userOrders.findIndex(
+                    (item) => item.id === action.payload.orderId 
+                );
+                state.userOrders.splice(index, 1);
                 toast.success("order deleted successfully")
             })
             .addCase(deleteOrder.rejected, (state, action) => {
-                console.log(action);
                 toast.error('couldn\'t delete order')
+            })
+            .addCase(getOrders.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(getOrders.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.isError = false;
+                state.isSuccess = true;
+                state.userOrders = action.payload.order;
+            })
+            .addCase(getOrders.rejected, (state, action) => {
+                state.message = action.payload;
+                state.isError = true;
+                state.isLoading = false;
+                state.isSuccess = false;
+                state.userOrders =[]
+                toast.error(state.message)
             })
     },
 

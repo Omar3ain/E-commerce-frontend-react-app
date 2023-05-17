@@ -15,6 +15,7 @@ import Stripe from './components/stripePayment/Stripe';
 import PaymentSuccess from './components/stripePayment/PaymentSuccess';
 import Order from './components/order/Order';
 import PaymentFail from './components/stripePayment/PaymentFail';
+import Orders from './components/order/Orders';
 function App() {
   return (
     <>
@@ -32,6 +33,7 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/wishlist" element={<pages.Wishlist />} />
           <Route path="/order" element={<Order />} />
+          <Route path="/user/orders" element={<Orders />} />
           <Route path="/payment" element={<Stripe />} />
           <Route path="/success" element={<PaymentSuccess />} />
           <Route path="/fail" element={<PaymentFail />} />

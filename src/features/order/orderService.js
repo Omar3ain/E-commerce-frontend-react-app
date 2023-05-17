@@ -21,11 +21,21 @@ const deleteOrder = async ( orderId, token) => {
     const response = await axios.delete(url+ orderId, config);
     return response.data;
 }
+const getOrders = async ( token) => {
+    const config = {
+        headers: {
+            Authorization: `token ${token}`,
+        },
+    };
+    const response = await axios.get(url, config);
+    return response.data;
+}
 
 
 const orderService = {
     placeOrder,
-    deleteOrder
+    deleteOrder,
+    getOrders
 }
 
 export default orderService

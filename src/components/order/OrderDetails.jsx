@@ -1,8 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
-import Cart from "../cart/Cart"
 import { getCart } from "../../features/cart/cartSlice";
 import { Box, Grid, Typography, Container, Paper } from "@mui/material";
-import CartItem from "../cart/CartItem";
 import { useEffect } from "react";
 
 const OrderDetails = () => {

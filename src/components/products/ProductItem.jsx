@@ -48,7 +48,7 @@ export default function ProductItem(props) {
             </div>
 
             {quantity === 0 ? <div className={styles['out-of-stock']}> <ErrorOutlineIcon /> Out of stock</div> : <div className={styles["overlay"]}>
-                <Button variant="contained" onClick={() => { dispatch(addToCart(id)) }}>
+                <Button variant="contained" style={{ backgroundColor: '#ece87d', color: '#2d2a32' }} onClick={() => { dispatch(addToCart(id)) }}>
                     <ShoppingCartIcon />
                     add to cart</Button>
             </div>}
