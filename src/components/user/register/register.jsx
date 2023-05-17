@@ -54,23 +54,22 @@ function Register() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const {  isLoading, isError, isRegisterSuccess, message } = useSelector(
+  const { user, isLoading, isError, isRegisterSuccess, message } = useSelector(
     (state) => state.auth
   );
 
   useEffect(() => {
-    // if (isError) {
-    //   toast.error(message);
-    // }
-
     if (isRegisterSuccess) {
-      // toast.success("Registered successfully");
       setTimeout(() => {
         navigate("/login");
       }
       , 3000);
     }
-  }, [ isError, isRegisterSuccess, message, navigate, dispatch]);
+
+    if(user && !isRegisterSuccess){
+      navigate("/profile");
+    }
+  }, [ user, isError, isRegisterSuccess, message, navigate, dispatch]);
 
   const onChange = (e) => {
     if (e.target.name === "image") {
@@ -117,22 +116,28 @@ function Register() {
   };
 
   return (
-    <div style={{ backgroundColor: "#EEEFA8" }}>
+    <div style={{ backgroundColor: "#85822E" }}>
       {isLoading ? (
         <Loader />
       ) : (
         <ThemeProvider theme={theme}>
-          <Container component="main" maxWidth="sm">
+          <Container component="main" maxWidth="sm" sx={{padding: 2}}>
             <CssBaseline />
             <Box
               sx={{
-                marginTop: 1,
+                marginTop: 2,
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
+
+                py: 4, // padding top & bottom
+                px: 3, // padding left & right
+                borderRadius: "sm",
+                boxShadow: "md",
+                bgcolor: "#FAFDF6",
               }}
             >
-              <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+              <Avatar sx={{ m: 1, bgcolor: "#85822E" }}>
                 <LockOutlinedIcon />
               </Avatar>
               <Typography component="h1" variant="h5">
@@ -245,7 +250,7 @@ function Register() {
                   type="submit"
                   fullWidth
                   variant="contained"
-                  sx={{ mt: 3, mb: 2 }}
+                  sx={{ mt: 3, mb: 2, backgroundColor: '#ece87d', color: '#2d2a32', "&:hover":{backgroundColor: '#fffcae'} }}
                 >
                   Sign Up
                 </Button>
@@ -258,8 +263,8 @@ function Register() {
                 </Grid>
               </Box>
               <ToastContainer />
-            </Box>
-            <Copyright sx={{ mt: 5 }} />
+              </Box>
+              <Copyright sx={{ mt: 5, color:'#FAFDF6' }} />
           </Container>
         </ThemeProvider>
       )}

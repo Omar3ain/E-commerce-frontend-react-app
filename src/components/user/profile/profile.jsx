@@ -52,25 +52,7 @@ function Profile() {
     (state) => state.auth
   );
 
-  const age = calculateAge(user.dob);
-
-  const [formData, setFormData] = useState({
-    name: user.name,
-    username: user.username,
-    email: user.email,
-    phone: user.phone,
-    address: user.address,
-    dob: user.dob,
-    image: null,
-  });
-
-  const { name, username, email, phone, address, dob, image } = formData; // password,
-
   useEffect(() => {
-    // if (isError) {
-    //   toast.error(message);
-    // }
-
     if (isSuccess) {
       // toast.success("Updated successfully");
       setImageName('');
@@ -78,8 +60,32 @@ function Profile() {
         navigate("/profile");
       }, 3000);
     }
+
+    if(!user){
+      navigate('/login');
+    }
+
   }, [user, isError, isSuccess, message, navigate, dispatch]);
 
+
+  let age;
+  if (user && user.dob) {
+    age = calculateAge(user.dob);
+  }
+
+  const [formData, setFormData] = useState({
+    name: user ? user.name : '',
+    username: user ? user.username : '',
+    email: user ? user.email : '',
+    phone: user ? user.phone : '',
+    address: user ? user.address : '',
+    dob: user ? user.dob : '',
+    image: null,
+  });
+
+  const { name, username, email, phone, address, dob, image } = formData; // password,
+
+  
   const onChange = (e) => {
     if (e.target.name === "image") {
       setFormData((prevState) => ({
@@ -101,38 +107,46 @@ function Profile() {
       alert("Please fill out all required fields");
       return;
     }
-    const form_data = new FormData();
-    if (name != user.name) {
-      form_data.append("name", name);
+    const formData2 = {};
+  
+    if (name !== user.name) {
+      formData2.name = name;
     }
-    if (username != user.username) {
-      form_data.append("username", username);
+  
+    if (username !== user.username) {
+      formData2.username = username;
     }
-    if (email != user.email) {
-      form_data.append("email", email);
+  
+    if (email !== user.email) {
+      formData2.email = email;
     }
-
-    if (phone != user.phone) {
-      console.log("Phone", phone);
-      form_data.append("phone", phone);
+  
+    if (phone !== user.phone) {
+      formData2.phone = phone;
     }
-
-    if (address != user.address) {
-      form_data.append("address", address);
+  
+    if (address !== user.address) {
+      formData2.address = address;
     }
-
-    if (dob != user.dob) {
-      form_data.append("dob", dob);
+  
+    if (dob !== user.dob) {
+      formData2.dob = dob;
     }
-
+  
     if (image) {
-      form_data.append("image", image);
+      formData2.image = image;
     }
-
-    if (form_data) {
-      dispatch(updateUserInfo(form_data));
-    } else if (!form_data) {
-      toast.error("No fields to update");
+  
+    console.log('hopa', formData2);
+    const keys = Object.keys(formData2);
+    if (keys.length > 0) {
+      const updatedData = new FormData();
+      keys.forEach(key => {
+        updatedData.append(key, formData2[key]);
+      });
+      dispatch(updateUserInfo(updatedData));
+    } else {
+      alert("No fields to update");
     }
   };
 
@@ -141,7 +155,9 @@ function Profile() {
       {isLoading ? (
         <Loader />
       ) : (
-        <MDBContainer className="py-5 h-100">
+        <>
+        {user ? (
+          <MDBContainer className="py-5 h-100">
           <MDBRow className="justify-content-center align-items-center h-100">
             <MDBCol lg="9" xl="7">
               <MDBCard>
@@ -382,6 +398,8 @@ function Profile() {
             </MDBCol>
           </MDBRow>
         </MDBContainer>
+        ) : (<></>)}
+        </>
       )}
     </div>
   );
