@@ -1,7 +1,34 @@
 import { Card,  CardContent, Typography  } from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import axios from "axios";
+import { useSelector } from "react-redux";
+import { useEffect } from 'react';
+
 
 const PaymentSuccess = () => {
+
+  const {token} = useSelector((store) => store.auth.user);
+
+  const orderId = new URLSearchParams(window.location.search).get(
+    "orderId",
+  );
+
+
+  const updatePaymentStatus = async () => {
+    const config = {
+        headers: {
+            Authorization: `token ${token}`,
+        },
+    };
+    await axios.put(`http://127.0.0.1:8000/user/order/payment/${orderId}/update`, {}, config);
+  };
+
+  useEffect(() => {
+    if(orderId){
+      updatePaymentStatus();
+    }
+  }, [])
+  
   return (
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '70vh' }}>
       <Card style={{ width: '80%', maxWidth: '600px', backgroundColor: '#feffc8e0' }}>

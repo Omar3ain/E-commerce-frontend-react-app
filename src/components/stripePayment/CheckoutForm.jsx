@@ -8,13 +8,15 @@ import {
 
 import styles from './css/Stripe.module.css';
 
-export default function CheckoutForm() {
+export default function CheckoutForm({orderId}) {
   const stripe = useStripe();
   const elements = useElements();
 
-  const [email, setEmail] = useState('');
+  
+  const [email, setEmail] = useState('Enter Your email');
   const [message, setMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+
 
   useEffect(() => {
     if (!stripe) {
@@ -57,15 +59,14 @@ export default function CheckoutForm() {
     }
 
     setIsLoading(true);
-
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
         // Make sure to change this to your payment completion page
-        return_url: "http://localhost:5173/success",
+        return_url: `http://localhost:5173/success?orderId=${orderId}`,
       },
     });
-
+  
     // This point will only be reached if there is an immediate error when
     // confirming the payment. Otherwise, your customer will be redirected to
     // your `return_url`. For some payment methods like iDEAL, your customer will
@@ -76,19 +77,24 @@ export default function CheckoutForm() {
     } else {
       setMessage("An unexpected error occurred.");
     }
-
-    setIsLoading(false);
+    setIsLoading(false); 
   };
 
   const paymentElementOptions = {
     layout: "tabs"
   }
 
+  const handleEmailChange = (e) => {
+    const emailValue = e.target?.value ?? 'Enter Your email';
+    setEmail(emailValue);
+  };
+  
+
   return (
     <form id={styles['payment-form']} className={styles['form']} onSubmit={handleSubmit}>
       <LinkAuthenticationElement
         id="link-authentication-element"
-        onChange={(e) => setEmail(e.target.value)}
+        onChange={handleEmailChange}
       />
       <PaymentElement id={styles['payment-element']} options={paymentElementOptions} />
       <button disabled={isLoading || !stripe || !elements} id="submit" className={styles['button']}>
