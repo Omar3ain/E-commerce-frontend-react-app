@@ -12,6 +12,7 @@ import NavbarComponent from "./components/homePage/Navbar/NavbarComponent";
 import CartRoutes from "./pages/CartPage/CartRoutes";
 import ProductsRoutes from "./pages/ProductsPage/ProductsRoutes";
 import Stripe from './components/stripePayment/Stripe';
+import ContStripe from './components/continuePayment/ContStripe';
 import PaymentSuccess from './components/stripePayment/PaymentSuccess';
 import Order from './components/order/Order';
 import PaymentFail from './components/stripePayment/PaymentFail';
@@ -35,6 +36,7 @@ function App() {
           <Route path="/order" element={<Order />} />
           <Route path="/user/orders" element={<Orders />} />
           <Route path="/payment" element={<Stripe />} />
+          <Route path="/continue-payment" element={<ContStripe />} />
           <Route path="/success" element={<PaymentSuccess />} />
           <Route path="/fail" element={<PaymentFail />} />
         </Routes>

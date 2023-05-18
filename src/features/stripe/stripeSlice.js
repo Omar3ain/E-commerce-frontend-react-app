@@ -25,6 +25,22 @@ export const checkout = createAsyncThunk(
     }
 );
 
+export const continuePayment = createAsyncThunk(
+    "stripe/continuePayment",
+    async (orderId, thunkAPI) => {
+        try {
+            const token = thunkAPI.getState().auth.user.token;
+            return await stripeService.continuePayment(orderId, token);
+        } catch (error) {
+            const message =
+                error.response.data.error ||
+                error.message ||
+                error.toString();
+            return thunkAPI.rejectWithValue(message);
+        }
+    }
+);
+
 const stripeSlice = createSlice({
     name: 'stripe',
     initialState,
@@ -48,6 +64,21 @@ const stripeSlice = createSlice({
                 state.clientSecret = action.payload.clientSecret;
             })
             .addCase(checkout.rejected, (state, action) => {
+                state.message = action.payload;
+                state.isError = true;
+                state.isLoading = false;
+                state.isSuccess = false;
+            })
+            .addCase(continuePayment.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(continuePayment.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.isError = false;
+                state.isSuccess = true;
+                state.clientSecret = action.payload.clientSecret;
+            })
+            .addCase(continuePayment.rejected, (state, action) => {
                 state.message = action.payload;
                 state.isError = true;
                 state.isLoading = false;

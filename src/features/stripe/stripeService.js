@@ -13,8 +13,20 @@ const checkout = async (orderId, token) => {
     return response.data;
 };
 
+const continuePayment = async (orderId, token) => {
+    const config = {
+        headers: {
+            Authorization: `token ${token}`,
+        },
+    };
+    const response = await axios.post(url + orderId + "/continue", {}, config);
+    return response.data;
+};
+
+
 const stripeService = {
     checkout,
+    continuePayment,
 };
 
 export default stripeService;

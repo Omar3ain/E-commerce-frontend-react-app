@@ -60,6 +60,24 @@ export const getOrders = createAsyncThunk(
         }
     }
 )
+
+
+export const cancelPayment = createAsyncThunk(
+    "order/cancelPayment",
+    async (orderId, thunkAPI) => {
+        try {
+            const token = thunkAPI.getState().auth.user.token;
+            return await orderService.cancelPayment(orderId, token);
+        } catch (error) {
+            const message =
+                error.response.data.error ||
+                error.message ||
+                error.toString();
+            return thunkAPI.rejectWithValue(message);
+        }
+    }
+);
+
 const orderSlice = createSlice({
     name: 'order',
     initialState,
@@ -115,9 +133,29 @@ const orderSlice = createSlice({
                 state.userOrders =[]
                 toast.error(state.message)
             })
+            .addCase(cancelPayment.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(cancelPayment.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.isError = false;
+                state.isSuccess = true;
+                const index = state.userOrders.findIndex(
+                    (item) => item.id === action.payload.data.id
+                );
+                if (index !== -1) {
+                    state.userOrders[index] = action.payload.data;
+                }
+                toast.success('Your order has been canceled and refunded successfully')
+            })
+            .addCase(cancelPayment.rejected, (state, action) => {
+                state.message = action.payload;
+                state.isError = true;
+                state.isLoading = false;
+                state.isSuccess = false;
+                toast.error(state.message)
+            })
     },
-
-
 })
 
 

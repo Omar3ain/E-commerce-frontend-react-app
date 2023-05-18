@@ -32,10 +32,22 @@ const getOrders = async ( token) => {
 }
 
 
+const cancelPayment = async (orderId, token) => {
+    const config = {
+        headers: {
+            Authorization: `token ${token}`,
+        },
+    };
+    const response = await axios.post(`http://127.0.0.1:8000/user/order/payment/${orderId}/cancel`, {}, config);
+    return response.data;
+};
+
+
 const orderService = {
     placeOrder,
     deleteOrder,
-    getOrders
+    getOrders,
+    cancelPayment,
 }
 
 export default orderService
