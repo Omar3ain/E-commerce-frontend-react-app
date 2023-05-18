@@ -70,7 +70,7 @@ const CartItem = ({ item, decreaseQuantityHandler, increaseQuantityHandler }) =>
           <Typography variant="h6" component="p" sx={{ marginLeft: 1, marginRight: 1 }} className={styles['item-buttons']} >
             {item.quantity}
           </Typography>
-          <IconButton aria-label="increment" size="small"  onClick={() => {increaseQuantityHandler(item.id)}} sx={{ '&:hover': { backgroundColor: 'green', color: 'white' }}} >
+          <IconButton aria-label="increment" size="small"  onClick={() => {increaseQuantityHandler(item.id, item.quantity)}} sx={{ '&:hover': { backgroundColor: 'green', color: 'white' }}} >
             <AddIcon className={styles['item-buttons']}  />
           </IconButton>
         </Box>

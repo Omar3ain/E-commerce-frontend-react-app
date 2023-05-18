@@ -5,6 +5,7 @@ import CartItem from './CartItem';
 import styles from './css/Cart.module.css';
 import { getCart, decreaseQuantity, increaseQuantity } from '../../features/cart/cartSlice';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -19,8 +20,12 @@ const decreaseQuantityHandler = (id) => {
   dispatch(decreaseQuantity(id))
 }
 
-const increaseQuantityHandler = (id) => {
-  dispatch(increaseQuantity(id))
+const increaseQuantityHandler = (id, quantity) => {
+  if(quantity == 10){
+    toast.error("You have reached the limit for the quantity for a customer. Try again in another order!");
+  }else{
+    dispatch(increaseQuantity(id))
+  }
 }
 
 if (isLoading) {
