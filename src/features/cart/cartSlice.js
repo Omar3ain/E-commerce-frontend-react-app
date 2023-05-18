@@ -112,7 +112,7 @@ const cartSlice = createSlice({
                 state.isError = false;
                 state.isSuccess = true;
                 state.cartItems = action.payload.Cart;
-                toast.success("Cart retrieved successfully");
+                // toast.success("Cart retrieved successfully");
             })
             .addCase(getCart.rejected, (state, action) => {
                 state.message = action.payload;

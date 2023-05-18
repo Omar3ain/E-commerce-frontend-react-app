@@ -8,7 +8,7 @@ function Relatedproduct({categoryId ,productId}) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   useEffect(() => {
-    if(categoryId ) dispatch(getProducts(categoryId))
+    if(categoryId ) dispatch(getProducts({categoryId,search:''}))
   }, [categoryId]);
   const { products, isLoading } = useSelector((state) => state.product);
   let relatedProducts= products.filter(product => product.id !== productId).slice(0, 6);

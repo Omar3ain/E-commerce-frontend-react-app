@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
@@ -13,11 +13,13 @@ import { Button } from '@mui/material';
 import { addToCart } from '../../features/cart/cartSlice';
 import { addToWishlist, removeFromWishlist } from '../../features/wishlist/wishlistSlice';
 import { useNavigate } from "react-router-dom";
+import { toast } from 'react-toastify';
 
 export default function ProductItem(props) {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { id, name, description, main_image, price, quantity } = props.product;
+    const {user} = useSelector((store) => store.auth);
 
     const addWishlist = (id) => { dispatch(addToWishlist(id)) }
     const removeWishlist = (id) => dispatch(removeFromWishlist(id))
@@ -48,7 +50,12 @@ export default function ProductItem(props) {
             </div>
 
             {quantity === 0 ? <div className={styles['out-of-stock']}> <ErrorOutlineIcon /> Out of stock</div> : <div className={styles["overlay"]}>
-                <Button variant="contained" style={{ backgroundColor: '#ece87d', color: '#2d2a32' }} onClick={() => { dispatch(addToCart(id)) }}>
+                <Button variant="contained" style={{ backgroundColor: '#ece87d', color: '#2d2a32' }} onClick={() => { 
+                    if(user)
+                       dispatch(addToCart(id));
+                    else
+                       toast.error("You need to log in first!");
+                    }}>
                     <ShoppingCartIcon />
                     add to cart</Button>
             </div>}
