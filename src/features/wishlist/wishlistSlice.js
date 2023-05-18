@@ -85,14 +85,17 @@ const wishlistSlice = createSlice({
                 state.isError = false;
                 state.isSuccess = true;
                 state.wishlistItems = [...state.wishlistItems, action.payload];
-                toast.success("added to wishlist")
+                toast.success("Added to wishlist")
             })
             .addCase(addToWishlist.rejected, (state, action) => {
                 state.message = action.payload;
                 state.isError = true;
                 state.isLoading = false;
                 state.isSuccess = false;
-                toast.error("couldn't add item")
+                if (action.payload === 'Cannot read properties of null (reading \'token\')')
+                    toast.error("You need to log in first!");
+                else
+                    toast.error("Couldn't add item")
             })
             .addCase(removeFromWishlist.fulfilled, (state, action) => {
                 state.isLoading = false;
@@ -101,11 +104,11 @@ const wishlistSlice = createSlice({
                     (item) => item.product.id === action.payload.product.id && item.user_id === action.payload.user_id
                 );
                 state.wishlistItems.splice(index, 1);
-                toast.success("removed from wishlist")
+                toast.success("Removed from wishlist")
             })
             .addCase(removeFromWishlist.rejected, (state, action) => {
                 console.log(action);
-                toast.error('couldn\'t remove from wishlist')
+                toast.error('Couldn\'t remove from wishlist')
             })
             .addCase(getWishlist.pending, (state) => {
                 state.isLoading = true;
