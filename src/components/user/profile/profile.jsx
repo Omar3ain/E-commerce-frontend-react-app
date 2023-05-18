@@ -40,7 +40,6 @@ function calculateAge(dob) {
 }
 
 function Profile() {
-  const AdminURL = "http://127.0.0.1:8000/admin/";
   const [varyingState, setVaryingState] = useState("");
   const [varyingModal, setVaryingModal] = useState(false);
   const [varyingRecipient, setVaryingRecipient] = useState("");
@@ -54,9 +53,9 @@ function Profile() {
   );
 
   useEffect(() => {
-    if(user.isAdmin){
-      window.open(AdminURL, "_blank");
-    }
+    // if(user.isAdmin){
+    //   window.open(AdminURL, "_blank");
+    // }
     if (isSuccess) {
       setImageName('');
       setTimeout(() => {

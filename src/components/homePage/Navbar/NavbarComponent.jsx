@@ -4,19 +4,20 @@ import styles from "./Navbar.module.css";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../../../features/auth/authSlice";
 import { useSelector, useDispatch } from "react-redux";
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import FavoriteIcon from '@mui/icons-material/Favorite';
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 // import { getCart } from "../../../features/cart/cartSlice";
 
 function NavbarComponent() {
+  const AdminURL = "http://127.0.0.1:8000/admin/";
   const [active, setActive] = useState(false);
   const { user } = useSelector((state) => state.auth);
-  const {cartItems } = useSelector((state) => state.cart);
+  const { cartItems } = useSelector((state) => state.cart);
   // useEffect(() => {
   //   dispatch(getCart())
   // }, []);
   let cart = cartItems.reduce((acc, cur) => {
-    if (!acc.find(item => item.id === cur.id)) {
+    if (!acc.find((item) => item.id === cur.id)) {
       acc.push(cur);
     }
     return acc;
@@ -50,7 +51,9 @@ function NavbarComponent() {
 
         <ul
           className={`${styles["list"]} ${active ? styles["isActive"] : ""} ${
-            active ? styles["newClass"] : "" }`}>
+            active ? styles["newClass"] : ""
+          }`}
+        >
           <li>
             <p onClick={() => navigate("/")}>Home</p>
           </li>
@@ -65,17 +68,32 @@ function NavbarComponent() {
               <li>
                 <p onClick={() => navigate("/profile")}>Profile</p>
               </li>
+              {user.isAdmin && (
+                <li>
+                  <p onClick={() => window.open(AdminURL, "_blank")}>Admin Panel</p>
+                </li>
+              )}
               <li>
-              <div>
-                <ShoppingCartIcon onClick={() => navigate("/cart")}  style={{ cursor: 'pointer'}}/>
-                {cart.length > 0 && <span>{cart.length}</span>}
-              </div>
+                <div>
+                  <ShoppingCartIcon
+                    onClick={() => navigate("/cart")}
+                    style={{ cursor: "pointer" }}
+                  />
+                  {cart.length > 0 && <span>{cart.length}</span>}
+                </div>
               </li>
               <li>
-                <FavoriteIcon  onClick={() => navigate("/wishlist")} style={{ cursor: 'pointer' , color: '#ece87d' }}/>
+                <FavoriteIcon
+                  onClick={() => navigate("/wishlist")}
+                  style={{ cursor: "pointer", color: "#ece87d" }}
+                />
               </li>
               <li>
-                <a href="/" className={"btn btn-primary " + styles['background_btn']} onClick={onLogout}>
+                <a
+                  href="/"
+                  className={"btn btn-primary " + styles["background_btn"]}
+                  onClick={onLogout}
+                >
                   Logout
                 </a>
               </li>
@@ -83,12 +101,18 @@ function NavbarComponent() {
           ) : (
             <>
               <li>
-              <a href="/login" className={"btn btn-primary " + styles['background_btn']}>
-                Login
-              </a>
+                <a
+                  href="/login"
+                  className={"btn btn-primary " + styles["background_btn"]}
+                >
+                  Login
+                </a>
               </li>
               <li>
-                <a href="/register" className={"btn btn-primary " + styles['background_btn']}>
+                <a
+                  href="/register"
+                  className={"btn btn-primary " + styles["background_btn"]}
+                >
                   Register
                 </a>
               </li>
