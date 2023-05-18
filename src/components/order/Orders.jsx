@@ -11,6 +11,10 @@ import { Box, Button, Modal } from "@mui/material";
 import { useNavigate } from "react-router";
 import OrderItems from "./OrderItems";
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
+import DoDisturbAltOutlinedIcon from '@mui/icons-material/DoDisturbAltOutlined';
+import PendingActionsOutlinedIcon from '@mui/icons-material/PendingActionsOutlined';
+import InventoryOutlinedIcon from '@mui/icons-material/InventoryOutlined';
+import CurrencyExchangeOutlinedIcon from '@mui/icons-material/CurrencyExchangeOutlined';
 
 const Orders = () => {
     const [expanded, setExpanded] = useState(false);
@@ -66,21 +70,29 @@ const Orders = () => {
                                 Order@ {format(order.createdAt)}
                             </Typography>
                             {(order.status === 'PENDING' &&
-                                <Typography style={{ color: 'blue' }}>Order Pending...</Typography>)
+                                <Typography style={{ color: 'blue' }}>
+                                    < PendingActionsOutlinedIcon style={{ color: 'blue', marginRight: "0.2rem", fontSize: "1.4rem" }} />
+                                    Pending</Typography>)
                                 ||
                                 (order.status === 'SHIPPING' &&
                                     <Typography style={{ color: 'rgb(149 144 0)' }}>
-                                         <LocalShippingIcon style={{ color: 'rgb(149 144 0)' }}/>
+                                         <LocalShippingIcon style={{  marginRight: "0.2rem", color: 'rgb(149 144 0)' }}/>
                                           Shipping</Typography>)
                                 ||
                                 (order.status === 'DELIVERED' &&
-                                    <Typography style={{ color: 'green' }}>Delivered!</Typography>)
+                                    <Typography style={{ color: 'green'}}>
+                                        <InventoryOutlinedIcon style={{ color: 'green', marginRight: "0.2rem", fontSize: "1.4rem" }}/>
+                                        Delivered!</Typography>)
                                     ||
                                     (order.status === 'CANCELED' &&
-                                        <Typography style={{ color: 'red' }}>Canceled</Typography>)
+                                        <Typography style={{ color: 'red' }}>
+                                            <DoDisturbAltOutlinedIcon style={{ color: 'red', marginRight: "0.2rem", fontSize: "1.2rem" }}/>
+                                             Canceled</Typography>)
                                         ||
                                         (order.status === 'REFUNDED' &&
-                                            <Typography style={{ color: '#C7C7CC' }}>Refunded</Typography>)
+                                            <Typography style={{ color: '#C7C7CC' }}>
+                                                <CurrencyExchangeOutlinedIcon style={{ color: '#C7C7CC', marginRight: "0.2rem", fontSize: "1.2rem" }}/>
+                                                Refunded</Typography>)
                             }
 
                             {(order.payment && order.payment.status === 'requires_payment_method' || !order.payment) &&
