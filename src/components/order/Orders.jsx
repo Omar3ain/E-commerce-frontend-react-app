@@ -128,11 +128,11 @@ const Orders = () => {
                                                 aria-describedby="modal-modal-description"
                                             >
                                                 <Box sx={style}>
+                                                    <Typography id="modal-modal-title" variant="h6" component="h2">
+                                                        Are you sure you want to cancel the order
+                                                    </Typography>
                                                     {order.status === 'SHIPPING' && order.payment.status === 'succeeded'? 
                                                             <>
-                                                                <Typography id="modal-modal-title" variant="h6" component="h2">
-                                                                    Are you sure you want to cancel the order
-                                                                </Typography>
                                                                 <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                                                                     You will be charged 15% of the total amount of your order if you canceled now   
                                                                 </Typography>
@@ -142,9 +142,6 @@ const Orders = () => {
                                                             </>
                                                             :
                                                             <>
-                                                                <Typography id="modal-modal-title" variant="h6" component="h2">
-                                                                    Are you sure you want to cancel the order
-                                                                </Typography>
                                                                 <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                                                                     Your order will be permanently deleted    
                                                                 </Typography>
