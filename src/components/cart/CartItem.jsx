@@ -1,10 +1,31 @@
-import { Box, Card, CardMedia, CardContent, Typography, IconButton } from '@mui/material';
+import { Box, Card, CardMedia, CardContent, Typography, IconButton,  Modal, Button } from '@mui/material';
 import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
 import styles from './css/CartItem.module.css';
+import { useState } from 'react';
 
 const CartItem = ({ item, decreaseQuantityHandler, increaseQuantityHandler }) => {
-
+  const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 500,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 3,
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+};
+  const [modalOpen, setModalOpen] = useState(false);
+  const confirmDeleteHandler = (id) => {
+    setModalOpen(false);
+    // delete the item from the cart or do other things
+    decreaseQuantityHandler(id);
+  };
   return (
     <Box className={styles['cart-item']} sx={{ marginTop: 2 }}>
     <Card sx={{ display: 'flex' }} className={styles['card']}>
@@ -30,9 +51,22 @@ const CartItem = ({ item, decreaseQuantityHandler, increaseQuantityHandler }) =>
           ${item.product_id.price}
         </Typography>
         <Box sx={{ display: 'flex', alignItems: 'center', paddingLeft: '1.5rem' }} className={styles['item-quantity']}>
-          <IconButton aria-label="decrement" size="small"  onClick={() => {decreaseQuantityHandler(item.id)}} sx={{ '&:hover': { backgroundColor: 'red', color: 'white' }}} >
+          <IconButton aria-label="decrement" size="small"  onClick={() => {item.quantity == 1 ? setModalOpen(true) : decreaseQuantityHandler(item.id) }} sx={{ '&:hover': { backgroundColor: 'red', color: 'white' }}} >
             <RemoveIcon className={styles['item-buttons']} />
           </IconButton>
+          <Modal open={modalOpen} aria-labelledby="modal-modal-title" onClose={() => setModalOpen(false)}>
+              <Box sx={style}>
+                    <Typography id="modal-modal-title" variant="h6" component="h2">
+                      Are you sure you want to delete "{item.product_id.name}" ?
+                    </Typography>
+                    <Box>
+                    <Button variant='outlined' color='primary' style={{ margin: '1.5rem' }} onClick={() => setModalOpen(false)}>No</Button>
+                    <Button variant='outlined' color='error' style={{ margin: '1.5rem' }} onClick={() => confirmDeleteHandler(item.id)}>
+                      Delete
+                    </Button>
+                    </Box>
+              </Box>
+          </Modal>
           <Typography variant="h6" component="p" sx={{ marginLeft: 1, marginRight: 1 }} className={styles['item-buttons']} >
             {item.quantity}
           </Typography>
