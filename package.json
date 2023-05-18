@@ -23,6 +23,7 @@
     "@stripe/stripe-js": "^1.53.0",
     "axios": "^1.4.0",
     "bootstrap": "^5.2.3",
+    "lodash.debounce": "^4.0.8",
     "mdb-react-ui-kit": "^6.0.0",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.4",
