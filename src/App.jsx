@@ -7,6 +7,7 @@ import pages from './pages';
 import Login from './components/user/login';
 import Profile from './components/user/profile';
 import Register from "./components/user/register/register";
+import AboutUs from "./components/aboutUs"
 
 import NavbarComponent from "./components/homePage/Navbar/NavbarComponent";
 import CartRoutes from "./pages/CartPage/CartRoutes";
@@ -32,6 +33,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/products/*" element={< ProductsRoutes />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/aboutUs" element={<AboutUs />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/wishlist" element={<pages.Wishlist />} />
           <Route path="/order" element={<Order />} />

@@ -1,5 +1,5 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import React, { Fragment, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Loader from "../../layout/loader";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -38,7 +38,6 @@ function ModeToggle() {
 }
 
 function Login() {
-  const AdminURL = "http://127.0.0.1:8000/admin/";
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -55,13 +54,6 @@ function Login() {
 
   useEffect(() => {
     if (isSuccess) {
-      // if(user.isAdmin){
-      //   toast.success("Logged in successfully as admin");
-      //   setTimeout(() => {
-      //     // window.location.assign(AdminURL);
-      //   }
-      //   , 2000);
-      // }
       setIsLoggedIn(true);
     }
     if (user && !isSuccess) {
@@ -81,7 +73,7 @@ function Login() {
   if (isLoggedIn) {
     setTimeout(() => {
       navigate("/");
-    }, 2000);
+    }, 1000);
   }
 
   return (
@@ -94,11 +86,10 @@ function Login() {
         <Loader />
       ) : (
         <CssVarsProvider>
-          <main style={{padding:1}}>
+          <main style={{padding:1}} >
             <Sheet
               sx={{
-                width: 600,
-                height: 400,
+                width: "60%",
                 mx: "auto", // margin left & right
                 my: 4, // margin top & bottom
                 py: 3, // padding top & bottom

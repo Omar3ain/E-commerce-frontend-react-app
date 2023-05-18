@@ -57,6 +57,9 @@ function NavbarComponent() {
           <li>
             <p onClick={() => navigate("/products")}>Products</p>
           </li>
+          <li>
+            <p onClick={() => navigate("/aboutUs")}>About us</p>
+          </li>
           {user ? (
             <>
               <li>
