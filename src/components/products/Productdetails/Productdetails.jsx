@@ -3,22 +3,27 @@ import { getProductById } from "../../../features/product/productSlice";
 import { getCategories  } from "../../../features/category/categorySlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { addToCart } from '../../../features/cart/cartSlice';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import Relatedproduct from '../Relatedproduct';
+
 function Productdetails() {
   const dispatch = useDispatch();
   const { productId } = useParams();
   const { categories } = useSelector((state) => state.category);
   const { product, isLoading } = useSelector((state) => state.product);
+  const [isAddedToCart, setIsAddedToCart] = useState(false);
+  const { user } = useSelector((state) => state.auth);
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(getProductById (productId))
     if(categories.length === 0) dispatch(getCategories()) 
-  }, []);
+  }, [dispatch]);
 
   let category = categories.find(category => category.id === product.category);
+  const product_images = product.image_urls?.split(',');
 
   const imgs = document.querySelectorAll('.img-select a');
   const imgBtns = [...imgs];
@@ -39,6 +44,9 @@ function Productdetails() {
 
   return (
     <>
+
+
+    
       <h1 style={{ textAlign: 'center' }}>Product Details</h1>
       <div className="card-wrapper">
         <div className="product_card">
@@ -46,48 +54,26 @@ function Productdetails() {
             <div className="img-display">
               <div className="img-showcase">
                 <img src={product.main_image} alt={product.name}/>
-                <img src="https://fadzrinmadu.github.io/hosted-assets/product-detail-page-design-with-image-slider-html-css-and-javascript/shoe_2.jpg" alt="shoe image"/>
-                <img src="https://fadzrinmadu.github.io/hosted-assets/product-detail-page-design-with-image-slider-html-css-and-javascript/shoe_3.jpg" alt="shoe image"/>
-                <img src="https://fadzrinmadu.github.io/hosted-assets/product-detail-page-design-with-image-slider-html-css-and-javascript/shoe_4.jpg" alt="shoe image"/>
+                { product_images?.map((image) =>
+                  <img src={image} alt={product.name}/>
+                )}
+              
               </div>
             </div>
             <div className="img-select">
-              <div className="img-item">
-                <a data-id="1">
-                  <img src={product.main_image}  alt="shoe image"/>
-                </a>
-              </div>
-              <div className="img-item">
-                <a data-id="2">
-                  <img src="https://fadzrinmadu.github.io/hosted-assets/product-detail-page-design-with-image-slider-html-css-and-javascript/shoe_2.jpg" alt="shoe image"/>
-                </a>
-              </div>
-              <div className="img-item">
-                <a data-id="3">
-                  <img src="https://fadzrinmadu.github.io/hosted-assets/product-detail-page-design-with-image-slider-html-css-and-javascript/shoe_3.jpg" alt="shoe image"/>
-                </a>
-              </div>
-              <div className="img-item">
-                <a data-id="4">
-                  <img src="https://fadzrinmadu.github.io/hosted-assets/product-detail-page-design-with-image-slider-html-css-and-javascript/shoe_4.jpg" alt="shoe image"/>
-                </a>
-              </div>
+            { product_images?.map((image , index) =>
+                  <div className="img-item">
+                    <a data-id={index+1}>
+                      <img src={image}  alt={product.name}/>
+                    </a>
+                  </div>
+                )}
             </div>
           </div>
           <div className="product-content">
             <h2 className="product-title">{product.name}</h2>
-            {/* <a href="#" className="product-link">visit nike store</a> */}
-            {/* <div className="product-rating">
-              <i className="fas fa-star"></i>
-              <i className="fas fa-star"></i>
-              <i className="fas fa-star"></i>
-              <i className="fas fa-star"></i>
-              <i className="fas fa-star-half-alt"></i>
-              <span>4.7(21)</span>
-            </div> */}
 
             <div className="product-price">
-              {/* <p className="last-price">Old Price: <span>$257.00</span></p> */}
               <p className="new-price">Price: <span>${product.price}</span></p>
             </div>
 
@@ -105,23 +91,24 @@ function Productdetails() {
             </div>
 
             <div className="purchase-info">
-              {/* <label htmlFor="quantity">Quantity</label>
-              <input type="number" min="0" name='quantity' id='quantity'/> */}
-              <button 
+
+            {user ? (<button 
               onClick={() => { dispatch(addToCart(product.id));
-                setQuantity(quantity - 1); }} 
+                setIsAddedToCart(true)
+              }} 
               type="button" 
               className="btn"
-              disabled={product.quantity === 0}
+              disabled={isAddedToCart || product.quantity ===0}
             >
-              Add to Cart <AddShoppingCartIcon/>
-            </button>
+              {isAddedToCart ? 'Added to Cart!' : 'Add to Cart'} <AddShoppingCartIcon/>
+            </button>): (<button onClick={() =>  navigate("/login")} 
+              className="btn">Log in</button>)}
             </div>
                 <Relatedproduct categoryId={category?.id} productId = {product.id}/>
           </div>
         </div>
       </div>
-      
+ 
     </>
   );
 }

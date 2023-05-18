@@ -25,7 +25,8 @@ export default function CategoryFilter() {
   };
 
   return (
-    <Box sx={{ minWidth: 120 }}>
+    <Box sx={{ minWidth: 120 ,position: 'sticky',
+        top: 50,    }}>
       <FormControl fullWidth>
         <InputLabel id="demo-simple-select-label">Category</InputLabel>
         <Select

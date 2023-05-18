@@ -17,6 +17,7 @@ import PaymentSuccess from './components/stripePayment/PaymentSuccess';
 import Order from './components/order/Order';
 import PaymentFail from './components/stripePayment/PaymentFail';
 import Orders from './components/order/Orders';
+import NotFoundPage from './pages/404Page/NotFoundPage';
 function App() {
   return (
     <>
@@ -39,6 +40,7 @@ function App() {
           <Route path="/continue-payment" element={<ContStripe />} />
           <Route path="/success" element={<PaymentSuccess />} />
           <Route path="/fail" element={<PaymentFail />} />
+          <Route path="/*" element={<NotFoundPage/>} />
         </Routes>
         <ToastContainer />
       </BrowserRouter>

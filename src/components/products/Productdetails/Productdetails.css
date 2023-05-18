@@ -181,7 +181,6 @@ img{
       grid-gap: 1.5rem;
   }
   .card-wrapper{
-      height: 120vh;
       display: flex;
       justify-content: center;
       align-items: center;

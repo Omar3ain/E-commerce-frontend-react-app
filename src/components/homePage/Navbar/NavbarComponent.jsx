@@ -1,16 +1,20 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./Navbar.module.css";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../../../features/auth/authSlice";
 import { useSelector, useDispatch } from "react-redux";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+// import { getCart } from "../../../features/cart/cartSlice";
 
 function NavbarComponent() {
   const [active, setActive] = useState(false);
   const { user } = useSelector((state) => state.auth);
   const {cartItems } = useSelector((state) => state.cart);
+  // useEffect(() => {
+  //   dispatch(getCart())
+  // }, []);
   let cart = cartItems.reduce((acc, cur) => {
     if (!acc.find(item => item.id === cur.id)) {
       acc.push(cur);
