@@ -18,6 +18,8 @@ import Order from './components/order/Order';
 import PaymentFail from './components/stripePayment/PaymentFail';
 import Orders from './components/order/Orders';
 import NotFoundPage from './pages/404Page/NotFoundPage';
+import ProtectedRoute from './utils/ProtectedRoute';
+
 function App() {
   return (
     <>
@@ -27,20 +29,26 @@ function App() {
       <BrowserRouter basename="/">
         <NavbarComponent />
         <Routes>
-          <Route path="" element={<pages.HomePage />} />
-          <Route path="/cart/*" element={<CartRoutes />} />
-          <Route path="/login" element={<Login />} />
           <Route path="/products/*" element={< ProductsRoutes />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="" element={<pages.HomePage />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/wishlist" element={<pages.Wishlist />} />
-          <Route path="/order" element={<Order />} />
-          <Route path="/user/orders" element={<Orders />} />
-          <Route path="/payment" element={<Stripe />} />
-          <Route path="/continue-payment" element={<ContStripe />} />
-          <Route path="/success" element={<PaymentSuccess />} />
-          <Route path="/fail" element={<PaymentFail />} />
+          
           <Route path="/*" element={<NotFoundPage/>} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/cart/*" element=
+          {
+          <ProtectedRoute>
+              <CartRoutes />
+          </ProtectedRoute>
+          } />
+          <Route path="/wishlist" element={<ProtectedRoute><pages.Wishlist /></ProtectedRoute>} />
+          <Route path="/order" element={<ProtectedRoute><Order /></ProtectedRoute>} />
+          <Route path="/user/orders" element={<ProtectedRoute><Orders /></ProtectedRoute>} />
+          <Route path="/payment" element={<ProtectedRoute><Stripe /></ProtectedRoute>} />
+          <Route path="/continue-payment" element={<ProtectedRoute><ContStripe /></ProtectedRoute>} />
+          <Route path="/success" element={<ProtectedRoute><PaymentSuccess /></ProtectedRoute>} />
+          <Route path="/fail" element={<ProtectedRoute><PaymentFail /></ProtectedRoute>} />
         </Routes>
         <ToastContainer />
       </BrowserRouter>
