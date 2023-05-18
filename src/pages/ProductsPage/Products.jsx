@@ -51,7 +51,7 @@ const Products = () => {
                     ) : (
                         <Grid container spacing={{ xs: 1 }} columns={{ xs: 4, sm: 8, md: 12 }}>
                             {products.map((product) => (
-                                <Grid item xs={3} sm={3} md={3} key={product.id}>
+                                <Grid item xs={12} sm={4} md={3} key={product.id}>
                                     <ProductItem product={product} inWishList={wishlistProductIds.includes(product.id)} />
                                 </Grid>
                             ))}
