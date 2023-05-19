@@ -16,7 +16,8 @@ function Relatedproduct({categoryId ,productId}) {
     <>
     <div className="br-found-heading">Related Products</div> 
     <div className='relatedProductsContainer'>
-    {relatedProducts.map((product) =>
+    {relatedProducts?.length >= 1 ?
+  relatedProducts.map((product) =>
     <div className="br-sf-widget" key={product.id}>
       <div className="br-sf-widget-merchant-cont">
         <div className="br-sf-widget-merchant-img">
@@ -30,8 +31,10 @@ function Relatedproduct({categoryId ,productId}) {
         </div>
       </div>
     </div>
-
-  )}
+  )
+  :
+  <p>No products available</p>
+}
     </div>
     </>
   )

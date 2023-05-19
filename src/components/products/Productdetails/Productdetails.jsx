@@ -54,14 +54,14 @@ function Productdetails() {
             <div className="img-display">
               <div className="img-showcase">
                 <img src={product.main_image} alt={product.name}/>
-                { product_images?.map((image) =>
-                  <img src={image} alt={product.name}/>
+                { product_images?.map((image,index) =>
+                  <img src={image} alt={product.name} key={index+1}/>
                 )}
               
               </div>
             </div>
             <div className="img-select">
-            { product_images?.map((image , index) =>
+             {product_images?.length > 1 && product_images?.map((image , index) =>
                   <div className="img-item">
                     <a data-id={index+1}>
                       <img src={image}  alt={product.name}/>

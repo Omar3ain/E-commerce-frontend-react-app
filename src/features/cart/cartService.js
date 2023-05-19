@@ -21,6 +21,7 @@ const getCart = async (token) => {
         },
     };
     const response = await axios.get(url, config);
+    localStorage.setItem('cartItems' , JSON.stringify(response.data.Cart.length) );
     return response.data;
 };
 
