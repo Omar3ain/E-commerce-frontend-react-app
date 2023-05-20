@@ -65,7 +65,7 @@ const Orders = () => {
         )
     }
     return (
-        <Container>
+        <Container style={{marginBottom:'5rem'}}>
             <Container className={styles['header']} >
                 <Typography variant="h4" className={styles['wishlist']} >
                     My Orders

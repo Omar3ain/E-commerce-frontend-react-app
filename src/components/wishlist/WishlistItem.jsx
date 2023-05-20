@@ -6,9 +6,11 @@ import { useDispatch } from 'react-redux';
 import { removeFromWishlist } from '../../features/wishlist/wishlistSlice';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
+import { useNavigate } from 'react-router';
 
 const WishlistItem = ({ item }) => {
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     return (
         <Box className={styles['wishlist-item']} sx={{ marginTop: 2 }}>
             <Card sx={{ display: 'flex' }} className={styles['card']}>
@@ -21,7 +23,8 @@ const WishlistItem = ({ item }) => {
 
                 <CardContent sx={{ flex: 1, display: 'flex', alignItems: 'center', color: '#85822E' }} className={styles['card-content']}>
                     <Box sx={{ flexGrow: 1 }}>
-                        <Typography variant="h5" component="h2" sx={{ marginBottom: '0.5rem' }} className={styles['item-info']}>
+                        <Typography variant="h5" component="h2" sx={{ marginBottom: '0.5rem', cursor:'pointer' }} className={styles['item-info']}
+                        onClick={()=>{navigate(`/products/${item.product.id}/product`)}}>
                             {item.product.name}
                         </Typography>
                         <Typography variant="body2" component="p" className={styles['item-desc']}>

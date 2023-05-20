@@ -3,8 +3,10 @@ import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
 import styles from './css/CartItem.module.css';
 import { useState } from 'react';
+import { useNavigate } from 'react-router';
 
 const CartItem = ({ item, decreaseQuantityHandler, increaseQuantityHandler,  sendingData }) => {
+  const navigate = useNavigate()
   const style = {
     position: 'absolute',
     top: '50%',
@@ -38,7 +40,9 @@ const CartItem = ({ item, decreaseQuantityHandler, increaseQuantityHandler,  sen
       
       <CardContent sx={{  flex: 1, display: 'flex', alignItems: 'center', color: '#85822E' }} className={styles['card-content']}>
         <Box sx={{ flexGrow: 1 }}>
-          <Typography variant="h5" component="h2" sx={{ marginBottom: '0.5rem' }} className={styles['item-info']}>
+          <Typography variant="h5" component="h2" sx={{ marginBottom: '0.5rem', cursor: 'pointer' }} className={styles['item-info']}
+          onClick={()=>{navigate(`/products/${item.product_id.id}/product`)}}
+          >
             {item.product_id.name}
           </Typography>
           <Typography variant="body2" component="p" className={styles['item-desc']}>

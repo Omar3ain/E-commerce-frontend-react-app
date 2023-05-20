@@ -23,7 +23,7 @@ const Wishlist= () => {
 
     return (
 
-            <Box className="container" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: 5, boxSizing: 'border-box' }}>
+            <Box className="container" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: 5,marginBottom:'5rem', boxSizing: 'border-box' }}>
                 <Container maxWidth="lg">
                     <Grid container spacing={2}>
                         {wishlistItems.length > 0 ?

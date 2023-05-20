@@ -1,9 +1,11 @@
 import styles from '../cart/css/CartItem.module.css';
 import { Box, Card, CardContent, CardMedia } from "@mui/material";
 import Typography from '@mui/material/Typography';
+import { useNavigate } from 'react-router';
 
 
 const OrderItems = ({item}) => {
+    const navigate = useNavigate()
     return (
         <Box className={styles['cart-item']} sx={{ marginTop: 2 }}>
             <Card sx={{ display: 'flex' }} className={styles['card']}>
@@ -16,7 +18,8 @@ const OrderItems = ({item}) => {
 
                 <CardContent sx={{ flex: 1, display: 'flex', alignItems: 'center', color: '#85822E' }} className={styles['card-content']}>
                     <Box sx={{ flexGrow: 1 }}>
-                        <Typography variant="h5" component="h2" sx={{ marginBottom: '0.5rem' }} className={styles['item-info']}>
+                        <Typography variant="h5" component="h2" sx={{ marginBottom: '0.5rem', cursor:'pointer' }} className={styles['item-info']}
+                         onClick={()=>{navigate(`/products/${item.product.id}/product`)}}>
                             {item.product.name}
                         </Typography>
                         <Typography variant="body2" component="p" className={styles['item-desc']}>
