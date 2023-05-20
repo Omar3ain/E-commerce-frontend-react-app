@@ -50,7 +50,6 @@ export const getOrders = createAsyncThunk(
             const token = thunkAPI.getState().auth.user.token;
             return await orderService.getOrders(token);
         } catch (error) {
-            console.log(error);
             const message =
             error.response.data.error ||
             error.message ||

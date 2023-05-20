@@ -99,7 +99,6 @@ const wishlistSlice = createSlice({
             })
             .addCase(removeFromWishlist.fulfilled, (state, action) => {
                 state.isLoading = false;
-                console.log(action.payload);
                 const index = state.wishlistItems.findIndex(
                     (item) => item.product.id === action.payload.product.id && item.user_id === action.payload.user_id
                 );
@@ -107,7 +106,6 @@ const wishlistSlice = createSlice({
                 toast.success("Removed from wishlist")
             })
             .addCase(removeFromWishlist.rejected, (state, action) => {
-                console.log(action);
                 toast.error('Couldn\'t remove from wishlist')
             })
             .addCase(getWishlist.pending, (state) => {

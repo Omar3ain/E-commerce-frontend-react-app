@@ -136,7 +136,6 @@ function Profile() {
       formData2.image = image;
     }
   
-    console.log('hopa', formData2);
     const keys = Object.keys(formData2);
     if (keys.length > 0) {
       const updatedData = new FormData();

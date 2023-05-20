@@ -25,7 +25,6 @@ const Stripe = () => {
   const { clientSecret } = useSelector((store) => store.stripe);
 
   useEffect(() => {
-    console.log(location);
     dispatch(checkout(order.id));
   }, [dispatch])
 
