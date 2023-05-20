@@ -9,6 +9,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import { getCart } from "../../../features/cart/cartSlice";
 import { Avatar, Button, Divider, IconButton, ListItemIcon, Menu, MenuItem } from "@mui/material";
 import PersonIcon from '@mui/icons-material/Person';
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import { Logout } from "@mui/icons-material";
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 import { API_BASE_URL } from '../../../baseUrl';
@@ -103,14 +104,6 @@ function NavbarComponent() {
           </li>
           {user ? (
             <>
-              {/* <li>
-                <p onClick={() => navigate("/profile")}>Profile</p>
-              </li> */}
-              {user.isAdmin && (
-                <li>
-                  <p onClick={() => window.open(AdminURL, "_blank")}>Admin Panel</p>
-                </li>
-              )}
               <li>
                 <div>
                   <ShoppingCartIcon
@@ -126,15 +119,6 @@ function NavbarComponent() {
                   style={{ cursor: "pointer", color: "#ece87d" }}
                 />
               </li>
-              {/* <li>
-                <a
-                  href="/"
-                  className={"btn btn-primary " + styles["background_btn"]}
-                  onClick={onLogout}
-                >
-                  Logout
-                </a>
-              </li> */}
             </>
           ) : (
             <>
@@ -184,6 +168,14 @@ function NavbarComponent() {
                 <MenuItem onClick={() => { navigate("/profile"); handleClose() }}><ListItemIcon>
                   <PersonIcon fontSize="small" />
                 </ListItemIcon>Profile</MenuItem>
+
+                {user.isAdmin && (
+                  <MenuItem onClick={() => window.open(AdminURL, "_blank")}><ListItemIcon>
+                    <AdminPanelSettingsIcon fontSize="small" />
+                  </ListItemIcon>Admin Panel</MenuItem>
+                )}
+
+
                 <MenuItem onClick={() => { navigate("/user/orders"); handleClose() }}>
                   <ListItemIcon>
                     <ReceiptLongIcon fontSize="small" />
