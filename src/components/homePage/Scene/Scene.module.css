@@ -1,0 +1,26 @@
+.fade-in{
+  opacity: 1;
+  position: absolute;
+  top: 0;
+  animation-name: fadeInOpacity;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in;
+  animation-duration: 2s;
+}
+.hidden{
+  opacity: 0;
+}
+@keyframes fadeInOpacity{
+  0%{
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@media (max-width: 425px) {
+  .fade-in{
+    display: none;
+  }
+
+}

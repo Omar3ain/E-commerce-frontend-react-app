@@ -1,0 +1,64 @@
+.relatedProductsContainer{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.br-found-heading {
+  font-weight: bold;
+  color: #999999;
+}
+.br-sf-widget{
+  width: 47%;
+}
+.br-sf-widget div:first-child {
+  padding-left: 0px;
+}
+.br-sf-widget div:last-child {
+  border-right: 0px;
+}
+
+div.br-sf-widget-merchant-cont {
+  padding: 15px;
+  border-right: 1px solid #eeeeee;
+  display: inline-block;
+  float: left;
+  min-height: 100px;
+  overflow: hidden;
+}
+
+.br-sf-widget-merchant-img {
+  width: 70px;
+  height: 70px;
+  margin-right: 10px;
+  float: left;
+  overflow: hidden;
+  text-align: center;
+  border: 1px solid #eeeeee;
+}
+.br-sf-widget-merchant-img img {
+  width: 90%;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+div.br-sf-widget-merchant-title {
+  line-height: 1.2em;
+  height: 18px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.br-sf-widget-merchant-desc {
+  line-height: 1.2em;
+  max-height: 34px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+@media (max-width: 767px) {
+  .br-sf-widget {
+    width: 100%;
+  }
+}

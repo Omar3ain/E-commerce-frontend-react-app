@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Sigmar&display=swap');
+.layout{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.flex-wrap{
+  flex: 1 1 100px;
+}
+.text{
+  position: relative;
+  padding: 6rem;
+  max-width: 500px;
+  z-index: 1;
+  width: 100%;
+  user-select: none;
+}
+.text h1{
+  font-size: 2.5rem;
+  
+  font-family: 'Sigmar', cursive !important;
+}
+.text button{
+    margin: 0 auto;
+    position: absolute;
+    border: 0;
+    width: 100%;
+    max-width: 300px;
+    background:#ECE87D;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    color: #85822E;
+    cursor: pointer;
+    font-size: 1.2rem;
+    font-family: 'Sigmar', cursive !important;
+    transition: 0.25s;
+
+}
+.text button:hover{
+  transform: rotate(-5deg);
+  transition: 0.25s;
+}
+
+@media (max-width: 922px) {
+  .text button{
+  width: 170px;
+  }
+}

@@ -1,0 +1,54 @@
+
+.stories {
+    margin-bottom: 40px;
+}
+
+.link {
+    text-decoration: none;
+    color: darkred;
+    font-size: 1.5rem;
+}
+
+.link:hover {
+    font-weight: bold;
+    color: #595630;
+}
+
+.story1{
+    box-shadow: rgb(221, 217, 42) -7px 7px 10px;
+    /* transform: rotate(0);
+    transition: transform 0.5s; */
+    transition: all 0.5s;
+}
+.story2{
+    box-shadow: rgb(221, 217, 42) -7px 7px 10px;
+    /* transform: rotate(0);
+    transition: transform 0.5s; */
+    transition: all 0.5s;
+}
+
+.story1:hover{
+    box-shadow: rgb(133 , 130, 46) inset -7px 7px 10px;
+    /* transform: rotate(-4deg); */
+    transform: scale(1.05);
+
+}
+.story2:hover{
+    box-shadow: rgb(133 , 130, 46) inset -7px 7px 10px;
+    /* transform: rotate(-4deg); */
+    transform: scale(1.05);
+}
+
+.story-img {
+    transition: opacity 0.5s ease;
+    transform: rotate(0);
+}
+
+
+.story1 img:hover{
+    transform: rotate(4deg);
+}
+
+.story2 img:hover{
+    transform: rotate(-4deg);
+}

@@ -1,0 +1,13 @@
+.layout{
+  width: 100vw;
+}
+.layout .fade-in{
+  height: 150% !important;
+}
+
+.layout nav{
+  background:none !important;
+}
+.navbar-brand{
+  color: #2D2A32 !important;
+}
