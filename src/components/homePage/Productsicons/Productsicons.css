@@ -1,0 +1,49 @@
+
+.six_box {
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+
+.bluedark_bg {
+  background: #212529;
+}
+
+.yellow_bg {
+  background: #ece87d;
+}
+
+.six_box .six_probpx {
+  text-align: center;
+  padding: 50px 0;
+}
+
+.six_box .six_probpx i {
+  display: block;
+}
+
+.pa_left {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.six_box .six_probpx span {
+  color: #fff;
+  font-size: 17px;
+  line-height: 32px;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+.six_box img {
+  width: 39%;
+  margin: 0 auto;
+}
+@media( max-width:780px) {
+  .six_box .six_probpx {
+    text-align: center;
+    padding: 22px 0;
+}
+.six_box img {
+  width: 20%;
+  margin: 0 auto;
+}
+}

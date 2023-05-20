@@ -7,12 +7,13 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { addToCart } from '../../../features/cart/cartSlice';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import Relatedproduct from '../Relatedproduct';
+import Loader from '../../layout/loader/Loader';
 
 function Productdetails() {
   const dispatch = useDispatch();
   const { productId } = useParams();
   const { categories } = useSelector((state) => state.category);
-  const { product, isLoading } = useSelector((state) => state.product);
+  const { product, isLoading ,isSuccess} = useSelector((state) => state.product);
   const [isAddedToCart, setIsAddedToCart] = useState(false);
   const { user } = useSelector((state) => state.auth);
   const navigate = useNavigate();
@@ -45,9 +46,11 @@ function Productdetails() {
   return (
     <>
 
+<h1 style={{ textAlign: 'center' }}>Product Details</h1>
 
-    
-      <h1 style={{ textAlign: 'center' }}>Product Details</h1>
+    {isLoading ? 
+    <Loader/> 
+    :
       <div className="card-wrapper">
         <div className="product_card">
           <div className="product-imgs">
@@ -61,7 +64,7 @@ function Productdetails() {
               </div>
             </div>
             <div className="img-select">
-             {product_images?.length > 1 && product_images?.map((image , index) =>
+              {product_images?.length > 1 && product_images?.map((image , index) =>
                   <div className="img-item">
                     <a data-id={index+1}>
                       <img src={image}  alt={product.name}/>
@@ -104,11 +107,12 @@ function Productdetails() {
             </button>): (<button onClick={() =>  navigate("/login")} 
               className="btn">Log in</button>)}
             </div>
-                <Relatedproduct categoryId={category?.id} productId = {product.id}/>
+                
           </div>
         </div>
       </div>
- 
+  }
+  <Relatedproduct categoryId={category?.id} productId = {product.id}/>
     </>
   );
 }

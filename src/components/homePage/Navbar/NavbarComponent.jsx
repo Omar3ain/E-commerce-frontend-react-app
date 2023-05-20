@@ -11,6 +11,7 @@ import { Avatar, Button, Divider, IconButton, ListItemIcon, Menu, MenuItem } fro
 import PersonIcon from '@mui/icons-material/Person';
 import { Logout } from "@mui/icons-material";
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
+import Extendednavbar from "../Extendednavbar/Extendednavbar";
 
 function NavbarComponent() {
   const AdminURL = "http://127.0.0.1:8000/admin/";
@@ -67,9 +68,10 @@ function NavbarComponent() {
   };
   return (
     <>
+    <Extendednavbar/>
       <div className={styles["navContainer"]}>
         <p className={styles["logo"]} onClick={() => navigate("/")}>
-          <span>W</span>ebsite
+          <span>S</span>ellio
         </p>
         <div className="d-flex justify-content-end align-items-center">
         <div className={styles["hamburger"]} ref={ref}>
