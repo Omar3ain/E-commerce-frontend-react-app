@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   PaymentElement,
   LinkAuthenticationElement,
@@ -11,14 +12,14 @@ import styles from './css/Stripe.module.css';
 export default function CheckoutForm({orderId}) {
   const stripe = useStripe();
   const elements = useElements();
-
+  const navigate = useNavigate();
   
   const [email, setEmail] = useState('Enter Your email');
   const [message, setMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
   const returnUrl = `/fail?orderId=${orderId}`;
- 
+
   useEffect(() => {
     if (!stripe) {
       return;
@@ -64,6 +65,7 @@ export default function CheckoutForm({orderId}) {
       elements,
       confirmParams: {
         // Make sure to change this to your payment completion page
+        
         return_url: `/success?orderId=${orderId}`,
       },
     });
@@ -75,10 +77,12 @@ export default function CheckoutForm({orderId}) {
     // redirected to the `return_url`.
     if (error.type === "card_error" || error.type === "validation_error") {
       setMessage(error.message);
-      window.location.href = returnUrl;
+      navigate(returnUrl)
+      // window.location.href = returnUrl;
     } else {
       setMessage("An unexpected error occurred.");
-      window.location.href = returnUrl;
+      navigate(returnUrl)
+      // window.location.href = returnUrl;
     }
     setIsLoading(false); 
   };

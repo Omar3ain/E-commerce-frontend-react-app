@@ -23,7 +23,6 @@ function HomePage() {
       <Featureproducts/>
       <Fashion/>
       <Categories/>
-
       <Threeboxes/>
     </div>
     </>
