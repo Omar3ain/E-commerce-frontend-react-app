@@ -6,7 +6,7 @@ function AboutUs() {
   return (
     <div
       style={{
-        backgroundColor: "#EAE151",
+        backgroundColor: "#2D2A32",
       }}
     >
         {/* //className={styles["navContainer"]} */}
@@ -14,7 +14,7 @@ function AboutUs() {
         <div className="container">
           <div className="about-content">
             <div className="p-2 d-flex align-items-center justify-content-around">
-              <h1 className="section-head-title">Developed By ...</h1>
+              <h1 className="section-head-title" style={{ color: "#EEEFA8"}}>Developed By ...</h1>
             </div>
             <div className={"row " + styles["stories"]}>
             <div
