@@ -1,17 +1,18 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { API_BASE_URL } from './baseUrl';
 
-const url = 'http://localhost:8000/categories';
+const url = `${API_BASE_URL}categories`;
 
 const initialState = {
-    categories:[],
-    page:1,
-    isLoading:true,
-    isError: false,
+  categories: [],
+  page: 1,
+  isLoading: true,
+  isError: false,
 }
 
 export const getCategories = createAsyncThunk('categories/getCategoryItem',
-async (name, thunkAPI) => {
+  async (name, thunkAPI) => {
     try {
       const resp = await axios(url);
       return resp.data;
@@ -23,23 +24,23 @@ async (name, thunkAPI) => {
 )
 
 const categorySlice = createSlice({
-    name: 'category',
-    initialState,
-    
-    extraReducers: (builder) => {
-        builder
-          .addCase(getCategories.pending, (state) => {
-            state.isLoading = true;
-          })
-          .addCase(getCategories.fulfilled, (state, action) => {
-            state.isLoading = false;
-            state.categories = action.payload;
-          })
-          .addCase(getCategories.rejected, (state, action) => {
-            state.isLoading = false;
-            state.isError = true;
-          });
-      },
+  name: 'category',
+  initialState,
+
+  extraReducers: (builder) => {
+    builder
+      .addCase(getCategories.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getCategories.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.categories = action.payload;
+      })
+      .addCase(getCategories.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+      });
+  },
 
 })
 

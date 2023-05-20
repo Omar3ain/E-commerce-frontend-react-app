@@ -1,6 +1,7 @@
 import { Card,  CardContent, Typography  } from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import axios from "axios";
+import axios from 'axios';
+import { API_BASE_URL } from './baseUrl';
 import { useSelector } from "react-redux";
 import { useEffect } from 'react';
 
@@ -20,7 +21,7 @@ const PaymentSuccess = () => {
             Authorization: `token ${token}`,
         },
     };
-    await axios.put(`http://127.0.0.1:8000/user/order/payment/${orderId}/update`, {}, config);
+    await axios.put(`${API_BASE_URL}user/order/payment/${orderId}/update`, {}, config);
   };
 
   useEffect(() => {

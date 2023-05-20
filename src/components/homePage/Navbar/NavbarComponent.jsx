@@ -13,7 +13,7 @@ import { Logout } from "@mui/icons-material";
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 
 function NavbarComponent() {
-  const AdminURL = "http://127.0.0.1:8000/admin/";
+  const AdminURL = `${API_BASE_URL}admin/`;
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [active, setActive] = useState(false);
