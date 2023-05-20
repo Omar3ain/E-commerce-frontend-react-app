@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { API_BASE_URL } from './baseUrl';
+import { API_BASE_URL } from '../../baseUrl';
 
 
 const initialState = {
@@ -78,7 +78,7 @@ export const getProductById = createAsyncThunk('products/getProductDetails',
   async (productId, thunkAPI) => {
 
     let config = {};
-    let url = `${API_BASE_URL}products/${productId}`;
+    let url = `${API_BASE_URL}products/${productId}/`;
 
     if (thunkAPI.getState().auth.user !== null) {
       const token = thunkAPI.getState().auth.user.token;

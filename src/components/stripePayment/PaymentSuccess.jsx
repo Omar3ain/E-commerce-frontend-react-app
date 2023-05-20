@@ -1,7 +1,7 @@
 import { Card,  CardContent, Typography  } from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import axios from 'axios';
-import { API_BASE_URL } from './baseUrl';
+import { API_BASE_URL } from '../../baseUrl';
 import { useSelector } from "react-redux";
 import { useEffect } from 'react';
 

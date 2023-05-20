@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { API_BASE_URL } from './baseUrl';
+import { API_BASE_URL } from '../../baseUrl';
 
 const url = `${API_BASE_URL}user/order/`;
 

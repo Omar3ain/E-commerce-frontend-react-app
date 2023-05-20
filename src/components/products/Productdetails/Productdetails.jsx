@@ -62,7 +62,7 @@ function Productdetails() {
             </div>
             <div className="img-select">
              {product_images?.length > 1 && product_images?.map((image , index) =>
-                  <div className="img-item">
+                  <div className="img-item" key={index+1}>
                     <a data-id={index+1}>
                       <img src={image}  alt={product.name}/>
                     </a>
