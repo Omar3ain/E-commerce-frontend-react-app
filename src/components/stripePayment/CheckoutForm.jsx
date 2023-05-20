@@ -17,7 +17,7 @@ export default function CheckoutForm({orderId}) {
   const [message, setMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const returnUrl = `http://localhost:5173/fail?orderId=${orderId}`;
+  const returnUrl = `https://sellio-ecommerce.onrender.com/fail?orderId=${orderId}`;
  
   useEffect(() => {
     if (!stripe) {
@@ -64,7 +64,7 @@ export default function CheckoutForm({orderId}) {
       elements,
       confirmParams: {
         // Make sure to change this to your payment completion page
-        return_url: `http://localhost:5173/success?orderId=${orderId}`,
+        return_url: `https://sellio-ecommerce.onrender.com/success?orderId=${orderId}`,
       },
     });
   
