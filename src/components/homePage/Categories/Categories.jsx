@@ -3,6 +3,7 @@ import { getCategories  } from "../../../features/category/categorySlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Loader from '../../layout/loader/Loader';
 
 function Categories() {
     const dispatch = useDispatch();
@@ -21,17 +22,25 @@ function Categories() {
     return (
     <>
         <div className="traineeship">
-        <h1>Categories</h1>
+            <div className="container">
+                <div className="row">
+                    <div className="col-md-12">
+                    <div className="titlepage">
+                    <h2>Featured Categories</h2>
+        </div>
+        </div>
         <div className="process-row">
-            {shuffledCategories.length > 0 ? (
+        {isLoading ? (
+            <Loader/>
+            ) : shuffledCategories.length > 0 ? (
             shuffledCategories.map((category, index) => (
-    
+                    
                     <div className={`activity animate-from-bottom__${index}`} key={category.id}
                     onClick={() => handleCategoryClick(category.id)}>
                     <div className="relative-block">
-                        <div className="activity-icon">
+                        {/* <div className="activity-icon">
                         <img alt="An image" src={images[Math.floor(Math.random() * 2)]}/>
-                        </div>
+                        </div> */}
                         <div className="inactive">
                         <div className="title">{category.name}</div>
                         </div>
@@ -46,6 +55,8 @@ function Categories() {
             ) : (
             <div className='no-category'>No categories to display.</div>
             )}
+        </div>
+        </div>
         </div>
         </div>
     </>

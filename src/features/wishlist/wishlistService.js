@@ -1,6 +1,7 @@
-import axios from "axios";
+import axios from 'axios';
+import { API_BASE_URL } from '../../baseUrl';
 
-const url = 'http://127.0.0.1:8000/user/wishlist/';
+const url = `${API_BASE_URL}user/wishlist/`;
 
 const addToWishlist = async (productId, token) => {
     const config = {
@@ -14,7 +15,7 @@ const addToWishlist = async (productId, token) => {
 const removeWishlist = async (productId, token) => {
     const config = {
         headers: {
-            Authorization: `token ${token}`,
+            Authorization: `token ${token} `,
         },
     };
     const response = await axios.delete(url + productId, config);
@@ -23,10 +24,10 @@ const removeWishlist = async (productId, token) => {
 const getWishlist = async (token) => {
     const config = {
         headers: {
-            Authorization: `token ${token}`,
+            Authorization: `token ${token} `,
         },
     };
-    const response = await axios.get(url , config);
+    const response = await axios.get(url, config);
     return response.data;
 }
 

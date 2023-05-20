@@ -7,40 +7,47 @@ import InstagramIcon from '@mui/icons-material/Instagram';
 function Footer() {
   return (
     <>
-        <footer className="bg-dark text-center text-white">
-
-          <div className="container p-4 pb-0">
-
-            <section className="mb-4">
-
-              <a className="btn btn-outline-light btn-floating m-1" href="#!" role="button">
-                  <FacebookIcon/>
-                </a>
-
-              <a className="btn btn-outline-light btn-floating m-1" href="#!" role="button">
-                < TwitterIcon/>
-                </a>
-
-            
-              <a className="btn btn-outline-light btn-floating m-1" href="#!" role="button">
-                < GoogleIcon />
-                </a>
-
-              <a className="btn btn-outline-light btn-floating m-1" href="#!" role="button">
-                <InstagramIcon/>
-                </a>
-
-            </section>
-
+      <footer>
+        <div className="footer">
+          <div className="container">
+              <div className="row">
+                <div className="col-md-3">
+                    <div className="inror_box">
+                      <h3>INFORMATION </h3>
+                      <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable</p>
+                    </div>
+                </div>
+                <div className="col-md-3">
+                    <div className="inror_box">
+                      <h3>MY ACCOUNT </h3>
+                      <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable</p>
+                    </div>
+                </div>
+                <div className="col-md-3">
+                    <div className="inror_box">
+                      <h3>ABOUT  </h3>
+                      <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable</p>
+                    </div>
+                </div>
+                <div className="col-md-3">
+                    <div className="inror_box">
+                      <h3>CONTACTS  </h3>
+                      <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable</p>
+                    </div>
+                </div>
+              </div>
           </div>
-
-
-
-          <div className="text-center p-3">
-            Website © 2023 All Rights Reserved.
+          <div className="copyright">
+              <div className="container">
+                <div className="row">
+                    <div className="col-md-12">
+                      <p>Sellio © 2023 All Rights Reserved</p>
+                    </div>
+                </div>
+              </div>
           </div>
-
-        </footer>
+        </div>
+    </footer>
     </>
   )
 }

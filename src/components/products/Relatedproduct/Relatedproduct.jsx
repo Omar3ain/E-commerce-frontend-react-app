@@ -14,7 +14,10 @@ function Relatedproduct({categoryId ,productId}) {
   let relatedProducts= products.filter(product => product.id !== productId).slice(0, 6);
   return (
     <>
-    <div className="br-found-heading">Related Products</div> 
+    <div>
+      
+    </div>
+    <div className="br-found-heading m-2">Related Products</div> 
     <div className='relatedProductsContainer'>
     {relatedProducts?.length >= 1 ?
   relatedProducts.map((product) =>

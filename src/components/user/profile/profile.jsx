@@ -53,9 +53,6 @@ function Profile() {
   );
 
   useEffect(() => {
-    // if(user.isAdmin){
-    //   window.open(AdminURL, "_blank");
-    // }
     if (isSuccess) {
       setImageName('');
       setTimeout(() => {

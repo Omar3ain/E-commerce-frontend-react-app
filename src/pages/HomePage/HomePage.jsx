@@ -4,6 +4,11 @@ import Nexttoscene from '../../components/homePage/Nexttoscene';
 import Categories from '../../components/homePage/Categories';
 import Footer from '../../components/homePage/Footer';
 import styles from './HomePage.module.css'
+import Productsicons from '../../components/homePage/Productsicons/Productsicons';
+import Featureproducts from '../../components/homePage/Featureproducts/Featureproducts';
+import Fashion from '../../components/homePage/Fashion/Fashion';
+import Threeboxes from '../../components/homePage/Threeboxes/Threeboxes';
+
 function HomePage() {
 
   return (
@@ -14,7 +19,12 @@ function HomePage() {
         <Nexttoscene/>
         <Scene/>
       </div>
+      <Productsicons/>
+      <Featureproducts/>
+      <Fashion/>
       <Categories/>
+
+      <Threeboxes/>
       <Footer/>
     </div>
     </>

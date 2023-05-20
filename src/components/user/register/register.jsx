@@ -151,7 +151,7 @@ function Register() {
                 encType="multipart/form-data"
               >
                 <Grid container spacing={2}>
-                  <Grid item xs={12} sm={6}>
+                  <Grid item xs={12} sm={12}>
                     <TextField
                       autoComplete="given-name"
                       name="name"
@@ -163,7 +163,7 @@ function Register() {
                       onChange={onChange}
                     />
                   </Grid>
-                  <Grid item xs={12} sm={6}>
+                  <Grid item xs={12} sm={12}>
                     <TextField
                       required
                       fullWidth
