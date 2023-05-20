@@ -93,7 +93,7 @@ const orderSlice = createSlice({
                 state.isSuccess = true;
                 state.order = action.payload.order;
                 state.orderItems = action.payload.order_items;
-                toast.success("order placed successfully")
+                toast.success("Order placed successfully")
 
             })
             .addCase(placeOrder.rejected, (state, action) => {
@@ -111,10 +111,10 @@ const orderSlice = createSlice({
                     (item) => item.id === action.payload.orderId 
                 );
                 state.userOrders.splice(index, 1);
-                toast.success("order deleted successfully")
+                toast.success("Order deleted successfully")
             })
             .addCase(deleteOrder.rejected, (state, action) => {
-                toast.error('couldn\'t delete order')
+                toast.error('Couldn\'t delete order')
             })
             .addCase(getOrders.pending, (state) => {
                 state.isLoading = true;

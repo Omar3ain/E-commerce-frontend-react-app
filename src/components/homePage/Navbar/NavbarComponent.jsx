@@ -1,33 +1,70 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useEffect, useState } from "react";
+import { useEffect, useState,useRef,  } from "react";
 import styles from "./Navbar.module.css";
 import { useNavigate } from "react-router-dom";
-import { logout } from "../../../features/auth/authSlice";
+import { logout, reset } from "../../../features/auth/authSlice";
 import { useSelector, useDispatch } from "react-redux";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-// import { getCart } from "../../../features/cart/cartSlice";
+import { getCart } from "../../../features/cart/cartSlice";
+import { Avatar, Button, Divider, IconButton, ListItemIcon, Menu, MenuItem } from "@mui/material";
+import PersonIcon from '@mui/icons-material/Person';
+import { Logout } from "@mui/icons-material";
+import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
+import { API_BASE_URL } from '../../../baseUrl';
 
 function NavbarComponent() {
-  const AdminURL = "http://127.0.0.1:8000/admin/";
-  const [active, setActive] = useState(false);
-  const { user } = useSelector((state) => state.auth);
-  const { cartItems } = useSelector((state) => state.cart);
-  // useEffect(() => {
-  //   dispatch(getCart())
-  // }, []);
-  let cart = cartItems.reduce((acc, cur) => {
-    if (!acc.find((item) => item.id === cur.id)) {
-      acc.push(cur);
-    }
-    return acc;
-  }, []);
+  const AdminURL = `${API_BASE_URL}admin/`;
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [active, setActive] = useState(false);
+  const ref = useRef(); 
+  const { user } = useSelector((state) => state.auth);
+  const { cartItems } = useSelector((state) => state.cart);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (ref.current && !ref.current.contains(event.target)) {
+        setActive(false);
+      }
+    };
+    document.addEventListener("click", handleClickOutside);
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, [ref]);
+  let cart;
+
+  if( cartItems.length > 0 ) {
+    cart = cartItems.reduce((acc, cur) => {
+      if (!acc.find((item) => item.id === cur.id)) {
+        acc.push(cur);
+      }
+      return acc;
+    }, []);
+    cart = cart.length;
+    localStorage.setItem('cartItems' , JSON.stringify(cart) );
+  } else {
+    cart = JSON.parse( localStorage.getItem('cartItems'));
+
+    if(cart == 1){
+      dispatch(getCart());
+    }
+  }
+  
+  
   const onLogout = () => {
     dispatch(logout());
     dispatch(reset());
     navigate("/");
+  };
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
   };
   return (
     <>
@@ -35,7 +72,8 @@ function NavbarComponent() {
         <p className={styles["logo"]} onClick={() => navigate("/")}>
           <span>W</span>ebsite
         </p>
-        <div className={styles["hamburger"]}>
+        <div className="d-flex justify-content-end align-items-center">
+        <div className={styles["hamburger"]} ref={ref}>
           <input
             type="checkbox"
             className={styles["hamburger-init"]}
@@ -65,9 +103,9 @@ function NavbarComponent() {
           </li>
           {user ? (
             <>
-              <li>
+              {/* <li>
                 <p onClick={() => navigate("/profile")}>Profile</p>
-              </li>
+              </li> */}
               {user.isAdmin && (
                 <li>
                   <p onClick={() => window.open(AdminURL, "_blank")}>Admin Panel</p>
@@ -79,7 +117,7 @@ function NavbarComponent() {
                     onClick={() => navigate("/cart")}
                     style={{ cursor: "pointer" }}
                   />
-                  {cart.length > 0 && <span>{cart.length}</span>}
+                  {cart> 0 && <span>{cart}</span>}
                 </div>
               </li>
               <li>
@@ -88,7 +126,7 @@ function NavbarComponent() {
                   style={{ cursor: "pointer", color: "#ece87d" }}
                 />
               </li>
-              <li>
+              {/* <li>
                 <a
                   href="/"
                   className={"btn btn-primary " + styles["background_btn"]}
@@ -96,7 +134,7 @@ function NavbarComponent() {
                 >
                   Logout
                 </a>
-              </li>
+              </li> */}
             </>
           ) : (
             <>
@@ -119,6 +157,48 @@ function NavbarComponent() {
             </>
           )}
         </ul>
+        {user ?
+            (<div>
+              <IconButton
+                onClick={handleClick}
+                size="small"
+                sx={{ ml: 2 }}
+                aria-controls={open ? 'account-menu' : undefined}
+                aria-haspopup="true"
+                aria-expanded={open ? 'true' : undefined}
+              >
+                <Avatar>{user.name[0].toUpperCase()}</Avatar>
+              </IconButton>
+
+              <Menu
+                id="basic-menu"
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleClose}
+                MenuListProps={{
+                  'aria-labelledby': 'basic-button',
+                }}
+              >
+                <MenuItem disabled style={{color:"black"}}>{user.name}</MenuItem>
+                <Divider></Divider>
+                <MenuItem onClick={() => { navigate("/profile"); handleClose() }}><ListItemIcon>
+                  <PersonIcon fontSize="small" />
+                </ListItemIcon>Profile</MenuItem>
+                <MenuItem onClick={() => { navigate("/user/orders"); handleClose() }}>
+                  <ListItemIcon>
+                    <ReceiptLongIcon fontSize="small" />
+                  </ListItemIcon>My orders</MenuItem>
+                <Divider style={{ backgroundColor: 'black' }}></Divider>
+                <MenuItem>
+                  <ListItemIcon>
+                    <Logout fontSize="small" />
+                  </ListItemIcon>
+                  <a href="/" style={{ color: 'black', textDecoration: 'none' }} onClick={() => { onLogout(); handleClose() }}>
+                    Logout
+                  </a></MenuItem>
+              </Menu>
+            </div>) : ''}
+      </div>
       </div>
     </>
   );

@@ -1,30 +1,31 @@
-import axios from "axios";
+import axios from 'axios';
+import { API_BASE_URL } from '../../baseUrl';
 
-const url = 'http://127.0.0.1:8000/user/order/';
+const url = `${API_BASE_URL}user/order/`;
 
-const placeOrder = async ( data, token) => {
+const placeOrder = async (data, token) => {
     const config = {
         headers: {
-            Authorization: `token ${token}`,
+            Authorization: `token ${ token }`,
         },
     };
     const response = await axios.post(url, data, config);
     return response.data;
 };
 
-const deleteOrder = async ( orderId, token) => {
+const deleteOrder = async (orderId, token) => {
     const config = {
         headers: {
-            Authorization: `token ${token}`,
+            Authorization: `token ${ token } `,
         },
     };
-    const response = await axios.delete(url+ orderId, config);
+    const response = await axios.delete(url + orderId, config);
     return response.data;
 }
-const getOrders = async ( token) => {
+const getOrders = async (token) => {
     const config = {
         headers: {
-            Authorization: `token ${token}`,
+            Authorization: `token ${ token } `,
         },
     };
     const response = await axios.get(url, config);
@@ -35,11 +36,11 @@ const getOrders = async ( token) => {
 const cancelPayment = async (orderId, token) => {
     const config = {
         headers: {
-            Authorization: `token ${token}`,
+            Authorization: `token ${ token } `,
         },
     };
-    const response = await axios.post(`http://127.0.0.1:8000/user/order/payment/${orderId}/cancel`, {}, config);
-    return response.data;
+    const response = await axios.post(`${API_BASE_URL}user/order/payment/${orderId}/cancel`, {}, config);
+return response.data;
 };
 
 

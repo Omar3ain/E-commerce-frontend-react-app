@@ -1,12 +1,13 @@
-import axios from "axios";
+import axios from 'axios';
+import { API_BASE_URL } from '../../baseUrl';
 
-const url = 'http://127.0.0.1:8000/user/order/payment/';
+const url = `${API_BASE_URL}user/order/payment/`;
 
 
 const checkout = async (orderId, token) => {
     const config = {
         headers: {
-            Authorization: `token ${token}`,
+            Authorization: `token ${ token }`,
         },
     };
     const response = await axios.post(url + orderId + "/", {}, config);
@@ -16,7 +17,7 @@ const checkout = async (orderId, token) => {
 const continuePayment = async (orderId, token) => {
     const config = {
         headers: {
-            Authorization: `token ${token}`,
+            Authorization: `token ${ token } `,
         },
     };
     const response = await axios.post(url + orderId + "/continue", {}, config);

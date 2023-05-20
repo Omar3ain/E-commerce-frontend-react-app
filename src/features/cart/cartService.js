@@ -1,12 +1,13 @@
-import axios from "axios";
+import axios from 'axios';
+import { API_BASE_URL } from '../../baseUrl';
 
-const url = 'http://127.0.0.1:8000/user/cart/';
+const url = `${API_BASE_URL}user/cart/`;
 
 
 const addToCart = async (productId, token) => {
     const config = {
         headers: {
-            Authorization: `token ${token}`,
+            Authorization: `token ${ token }`,
         },
     };
     const response = await axios.post(url + productId + "/", {}, config);
@@ -17,17 +18,18 @@ const addToCart = async (productId, token) => {
 const getCart = async (token) => {
     const config = {
         headers: {
-            Authorization: `token ${token}`,
+            Authorization: `token ${ token } `,
         },
     };
     const response = await axios.get(url, config);
+    localStorage.setItem('cartItems', JSON.stringify(response.data.Cart.length));
     return response.data;
 };
 
 const decreaseQuantity = async (cartItemId, token) => {
     const config = {
         headers: {
-            Authorization: `token ${token}`,
+            Authorization: `token ${ token } `,
         },
     };
     const response = await axios.delete(url + "delete/" + cartItemId + "/", config);
@@ -37,7 +39,7 @@ const decreaseQuantity = async (cartItemId, token) => {
 const increaseQuantity = async (cartItemId, token) => {
     const config = {
         headers: {
-            Authorization: `token ${token}`,
+            Authorization: `token ${ token } `,
         },
     };
     const response = await axios.put(url + "add/" + cartItemId, {}, config);
