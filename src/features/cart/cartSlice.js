@@ -96,6 +96,7 @@ const cartSlice = createSlice({
                 state.isError = false;
                 state.isSuccess = true;
                 state.cartItems = [...state.cartItems, action.payload];
+                localStorage.setItem('cartItems', JSON.stringify(state.cartItems.length));
                 toast.success("Product added successfully");
             })
             .addCase(addToCart.rejected, (state, action) => {
@@ -112,6 +113,8 @@ const cartSlice = createSlice({
                 state.isError = false;
                 state.isSuccess = true;
                 state.cartItems = action.payload.Cart;
+                localStorage.setItem('cartItems', JSON.stringify(state.cartItems.length));
+
                 // toast.success("Cart retrieved successfully");
             })
             .addCase(getCart.rejected, (state, action) => {
@@ -120,7 +123,7 @@ const cartSlice = createSlice({
                 state.isLoading = false;
                 state.isSuccess = false;
                 state.cartItems = [];
-                toast.error(state.message);
+                // toast.error(state.message);
             })
             .addCase(decreaseQuantity.fulfilled, (state, action) => {
                 state.isLoading = false;
@@ -137,6 +140,8 @@ const cartSlice = createSlice({
                         state.cartItems[index].quantity = action.payload.item.quantity;
                     }
                 }
+                localStorage.setItem('cartItems', JSON.stringify(state.cartItems.length));
+
             })
             .addCase(decreaseQuantity.rejected, (state, action) => {
                 state.isLoading = false;
