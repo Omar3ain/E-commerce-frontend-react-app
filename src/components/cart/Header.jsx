@@ -4,9 +4,9 @@ import { Container } from 'react-bootstrap';
 
 const Header = () => {
   return (
-    <Container className={styles['header']} >
+    <Container className={styles['header']}>
       <Typography variant="h5" className={styles['cart']} >
-        Cart
+        My Cart
       </Typography>
     </Container>
   )

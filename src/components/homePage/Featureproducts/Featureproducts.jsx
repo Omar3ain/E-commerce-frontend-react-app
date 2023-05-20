@@ -12,7 +12,6 @@ function Featureproducts() {
   useEffect(() => {
     dispatch(getProducts({ categoryId:undefined, search: ''}))
 }, [])
-console.log(products);
 const featuredProducts = [...products]
 featuredProducts?.sort(() => 0.5 - Math.random()).slice(0, 15);
   return (

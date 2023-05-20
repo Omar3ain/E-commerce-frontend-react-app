@@ -70,7 +70,6 @@ function NavbarComponent() {
   };
   return (
     <>
-    <Extendednavbar/>
       <div className={styles["navContainer"]}>
         <p className={styles["logo"]} onClick={() => navigate("/")}>
           <span>S</span>ellio
@@ -125,7 +124,8 @@ function NavbarComponent() {
               <>
                 <li>
                   <a
-                    href="/login"
+                    sx={{ cursor: "pointer" }}
+                    onClick={() => navigate("/login")}
                     className={"btn btn-primary " + styles["background_btn"]}
                   >
                     Login
@@ -133,7 +133,8 @@ function NavbarComponent() {
                 </li>
                 <li>
                   <a
-                    href="/register"
+                    sx={{ cursor: "pointer" }}
+                    onClick={() => navigate("/register")}
                     className={"btn btn-primary " + styles["background_btn"]}
                   >
                     Register

@@ -37,7 +37,7 @@ function App() {
           <Route path="/aboutUs" element={<AboutUs />} />
           <Route path="/*" element={<NotFoundPage/>} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/cart/*" element=
+          <Route path="/cart" element=
           {
           <ProtectedRoute>
               <CartRoutes />
