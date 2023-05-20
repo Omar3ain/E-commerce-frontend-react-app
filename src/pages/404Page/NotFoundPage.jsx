@@ -1,6 +1,8 @@
 import './NotFoundPage.css';
+import { useNavigate } from 'react-router-dom';
 
 const NotFoundPage = () => {
+  const navigate = useNavigate();
   return (
     <>    
       <div id='oopss'>
@@ -9,7 +11,7 @@ const NotFoundPage = () => {
           <span>404 PAGE</span>
           <p className="p-a">
             . The page you were looking for could not be found</p>
-          <a href='/' className="back">... Back to previous page</a>
+          <a onClick={()=>{navigate('/')}} className="back">... Back to previous page</a>
       </div>
   </div>
     </>

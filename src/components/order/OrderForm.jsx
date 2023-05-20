@@ -107,7 +107,7 @@ const OrderForm = () => {
                     required
                 />
 
-                <Button variant="contained" color="primary" type="submit" style={{ backgroundColor: '#ece87d', color: '#2d2a32' }}>
+                <Button variant="contained" color="primary" type="submit" style={{ backgroundColor: '#ece87d', color: '#2d2a32', marginBottom: "10rem" }}>
                     Proceed to payment
                 </Button>
             </form>

@@ -25,7 +25,7 @@ function Copyright(props) {
       {...props}
     >
       {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
+      <Link color="inherit" href="#">
         Your Website
       </Link>{" "}
       {new Date().getFullYear()}
@@ -256,7 +256,7 @@ function Register() {
                 </Button>
                 <Grid container justifyContent="flex-end">
                   <Grid item>
-                    <Link href="/login" variant="body2">
+                    <Link onClick={()=>{navigate('/login')}} variant="body2">
                       Already have an account? Sign in
                     </Link>
                   </Grid>

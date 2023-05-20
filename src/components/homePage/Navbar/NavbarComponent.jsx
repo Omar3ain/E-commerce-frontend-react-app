@@ -187,7 +187,7 @@ function NavbarComponent() {
                   <ListItemIcon>
                     <Logout fontSize="small" />
                   </ListItemIcon>
-                  <a href="/" style={{ color: 'black', textDecoration: 'none' }} onClick={() => { onLogout(); handleClose() }}>
+                  <a href="/" style={{ color: 'black', textDecoration: 'none' }} onClick={() => { onLogout(); handleClose(); }}>
                     Logout
                   </a></MenuItem>
               </Menu>

@@ -134,7 +134,7 @@ function Login() {
                 Login
               </Button>
               <Typography
-                endDecorator={<Link href="/register">Sign up</Link>}
+                endDecorator={<Link onClick={()=>{navigate('/register')}}>Sign up</Link>}
                 fontSize="sm"
                 sx={{ alignSelf: "center" }}
               >

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getProducts } from "../../../features/product/productSlice";
 import { useNavigate } from 'react-router-dom';
+import Loader from '../../layout/loader/Loader';
 
 function Relatedproduct({categoryId ,productId}) {
   const navigate = useNavigate();
@@ -12,6 +13,9 @@ function Relatedproduct({categoryId ,productId}) {
   }, [categoryId]);
   const { products, isLoading } = useSelector((state) => state.product);
   let relatedProducts= products.filter(product => product.id !== productId).slice(0, 6);
+  if(isLoading){
+    return <Loader/>
+  }
   return (
     <>
     <div>
@@ -27,7 +31,7 @@ function Relatedproduct({categoryId ,productId}) {
           <img src={product.main_image}/>
         </div>
         <div className="br-sf-widget-merchant-title">
-          <a href=''  onClick={(e)=>{ navigate(`/products/${product.id}/product/`)}} >{product.name}</a>
+          <a href='' onClick={(e)=>{ navigate(`/products/${product.id}/product/`)}} >{product.name}</a>
         </div>
         <div className="br-sf-widget-merchant-desc">
           Details: {product.description}

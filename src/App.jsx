@@ -10,6 +10,7 @@ import Register from "./components/user/register/register";
 import AboutUs from "./components/aboutUs"
 
 import NavbarComponent from "./components/homePage/Navbar/NavbarComponent";
+import Footer from "./components/homePage/Footer/Footer";
 import CartRoutes from "./pages/CartPage/CartRoutes";
 import ProductsRoutes from "./pages/ProductsPage/ProductsRoutes";
 import Stripe from './components/stripePayment/Stripe';
@@ -51,6 +52,7 @@ function App() {
           <Route path="/success" element={<ProtectedRoute><PaymentSuccess /></ProtectedRoute>} />
           <Route path="/fail" element={<ProtectedRoute><PaymentFail /></ProtectedRoute>} />
         </Routes>
+        <Footer />
         <ToastContainer />
       </BrowserRouter>
     </>

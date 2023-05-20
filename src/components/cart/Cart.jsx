@@ -9,6 +9,7 @@ import { toast } from 'react-toastify';
 import Loader from '../layout/loader/Loader';
 
 const Cart = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { cartItems, isLoading, isSuccess } = useSelector((store) => store.cart);
   const [sendingData, setSendingData] = useState(false);
@@ -49,7 +50,7 @@ if (isLoading) {
 }
 
 const total = cartItems.length > 0 ? cartItems.reduce((acc, item) => acc + item.product_id.price * item.quantity, 0): 0;
-// const navigate = useNavigate();
+
 return (
     <Box className="container" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: 5, boxSizing: 'border-box' }}>
       <Container maxWidth="lg">
@@ -68,12 +69,12 @@ return (
           </Grid>
           }
         </Grid>
-        <Box className={styles['total']} sx={{ marginTop: 2 }}>
+        <Box className={styles['total']} sx={{ marginTop: 2 , marginBottom: "10rem"}}>
             <Typography variant="h6" component="p" sx={{ marginBottom: { xs: 1, md: 0 }, marginRight: { xs: 0, md: 2 } }} className={styles['total_amount']}>
               Total: ${total}
             </Typography>
             <Button variant="contained" sx={{ backgroundColor: '#DDD92A', '&:hover': { backgroundColor: '#85822E' }}} disabled={cartItems.length === 0}>
-              <a href="/order" style={{textDecoration:'none',color:'#fff'}}>
+              <a onClick={()=>{navigate('/order')}} style={{textDecoration:'none',color:'#fff'}}>
                  Place Order
                 </a>
             </Button>
