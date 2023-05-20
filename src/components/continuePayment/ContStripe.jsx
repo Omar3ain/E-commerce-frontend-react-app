@@ -7,7 +7,7 @@ import { continuePayment } from "../../features/stripe/stripeSlice";
 import { useLocation } from 'react-router-dom';
 import { Box } from "@mui/material";
 import Invoice from "../stripePayment/Invoice";
-
+import styles from './css/Stripe.module.css';
 
 // Make sure to call loadStripe outside of a component’s render to avoid
 // recreating the Stripe object on every render.
@@ -38,7 +38,7 @@ const ContStripe = () => {
   };
 
   return (
-    <Box sx={{ display: 'flex', justifyContent: 'space-around' }}>
+    <Box sx={{ display: 'flex', justifyContent: 'space-around', alignItems: 'center'  }} className={styles['cont']}>
       {clientSecret && (
         <Elements options={options} stripe={stripePromise}>
           <CheckoutForm orderId={order.id}/>
