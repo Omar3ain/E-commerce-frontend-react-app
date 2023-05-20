@@ -11,30 +11,30 @@
 
 .link:hover {
     font-weight: bold;
-    color: teal;
+    color: #595630;
 }
 
 .story1{
-    box-shadow: rgb(87, 214, 237) -7px 7px 10px;
+    box-shadow: rgb(221, 217, 42) -7px 7px 10px;
     /* transform: rotate(0);
     transition: transform 0.5s; */
     transition: all 0.5s;
 }
 .story2{
-    box-shadow: rgb(243, 101, 101) 7px 7px 10px;
+    box-shadow: rgb(221, 217, 42) -7px 7px 10px;
     /* transform: rotate(0);
     transition: transform 0.5s; */
     transition: all 0.5s;
 }
 
 .story1:hover{
-    box-shadow: rgb(87, 214, 237) inset 7px -7px 10px;
+    box-shadow: rgb(133 , 130, 46) inset -7px 7px 10px;
     /* transform: rotate(-4deg); */
     transform: scale(1.05);
 
 }
 .story2:hover{
-    box-shadow: rgb(243, 101, 101) inset -7px -7px 10px;
+    box-shadow: rgb(133 , 130, 46) inset -7px 7px 10px;
     /* transform: rotate(-4deg); */
     transform: scale(1.05);
 }

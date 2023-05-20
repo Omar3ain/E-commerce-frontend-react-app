@@ -1,6 +1,7 @@
 import axios from 'axios';
+import { API_BASE_URL } from '../../baseUrl';
 
-const URL = 'http://127.0.0.1:8000/user/'
+const URL = `${API_BASE_URL}user/`
 
 const login = async (userData) => {
     const config = {
@@ -50,19 +51,19 @@ const updateUserInfo = async (userData, token, id) => {
     const config = {
         headers: {
             'Content-Type': 'multipart/form-data',
-            'Authorization': `token ${token}`
+            'Authorization': `token ${ token }`
         },
     };
     const response = await axios.patch(
-        URL + `profile/${id}/`,
-        userData,
-        config
+        URL + `profile / ${ id } /`,
+userData,
+    config
     )
-    localStorage.setItem(
-        "user",
-        JSON.stringify({ ...user, ...response.data })
-    );
-    return response.data;
+localStorage.setItem(
+    "user",
+    JSON.stringify({ ...user, ...response.data })
+);
+return response.data;
 };
 
 const authService = {

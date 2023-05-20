@@ -4,7 +4,7 @@ import AddIcon from '@mui/icons-material/Add';
 import styles from './css/CartItem.module.css';
 import { useState } from 'react';
 
-const CartItem = ({ item, decreaseQuantityHandler, increaseQuantityHandler }) => {
+const CartItem = ({ item, decreaseQuantityHandler, increaseQuantityHandler,  sendingData }) => {
   const style = {
     position: 'absolute',
     top: '50%',
@@ -51,7 +51,7 @@ const CartItem = ({ item, decreaseQuantityHandler, increaseQuantityHandler }) =>
           ${item.product_id.price}
         </Typography>
         <Box sx={{ display: 'flex', alignItems: 'center', paddingLeft: '1.5rem' }} className={styles['item-quantity']}>
-          <IconButton aria-label="decrement" size="small"  onClick={() => {item.quantity == 1 ? setModalOpen(true) : decreaseQuantityHandler(item.id) }} sx={{ '&:hover': { backgroundColor: 'red', color: 'white' }}} >
+          <IconButton aria-label="decrement" size="small" disabled={sendingData} onClick={() => {item.quantity == 1 ? setModalOpen(true) : decreaseQuantityHandler(item.id) }} sx={{ '&:hover': { backgroundColor: 'red', color: 'white' }}} >
             <RemoveIcon className={styles['item-buttons']} />
           </IconButton>
           <Modal open={modalOpen} aria-labelledby="modal-modal-title" onClose={() => setModalOpen(false)}>
@@ -70,7 +70,7 @@ const CartItem = ({ item, decreaseQuantityHandler, increaseQuantityHandler }) =>
           <Typography variant="h6" component="p" sx={{ marginLeft: 1, marginRight: 1 }} className={styles['item-buttons']} >
             {item.quantity}
           </Typography>
-          <IconButton aria-label="increment" size="small"  onClick={() => {increaseQuantityHandler(item.id, item.quantity)}} sx={{ '&:hover': { backgroundColor: 'green', color: 'white' }}} >
+          <IconButton aria-label="increment" size="small" disabled={item.quantity >= 10 || sendingData} onClick={() => {increaseQuantityHandler(item.id, item.quantity)}} sx={{ '&:hover': { backgroundColor: 'green', color: 'white' }}} >
             <AddIcon className={styles['item-buttons']}  />
           </IconButton>
         </Box>
