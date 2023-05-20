@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Container, Grid, Box, Typography, Button } from '@mui/material';
 import CartItem from './CartItem';
@@ -6,10 +6,13 @@ import styles from './css/Cart.module.css';
 import { getCart, decreaseQuantity, increaseQuantity } from '../../features/cart/cartSlice';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import Loader from '../layout/loader/Loader';
 
 const Cart = () => {
   const dispatch = useDispatch();
-  const { cartItems, isLoading } = useSelector((store) => store.cart);
+  const { cartItems, isLoading, isSuccess } = useSelector((store) => store.cart);
+  const [sendingData, setSendingData] = useState(false);
+
 
   useEffect(() => {
     dispatch(getCart());
@@ -17,22 +20,31 @@ const Cart = () => {
 
 
 const decreaseQuantityHandler = (id) => {
-  dispatch(decreaseQuantity(id))
+  setSendingData(true);
+  dispatch(decreaseQuantity(id)).then(() => {
+    setSendingData(false);
+  }).catch(() => {
+    setSendingData(true);
+  });
 }
 
 const increaseQuantityHandler = (id, quantity) => {
-  if(quantity == 10){
+  setSendingData(true);
+  if(quantity >= 10){
     toast.error("You have reached the limit for the quantity for a customer. Try again in another order!");
+    setSendingData(false);
   }else{
-    dispatch(increaseQuantity(id))
+    dispatch(increaseQuantity(id)).then(() => {
+      setSendingData(false);
+    }).catch(() => {
+      setSendingData(true);
+    });
   }
 }
 
 if (isLoading) {
   return (
-    <div className="loading">
-      <h1>Loading....</h1>
-    </div>
+    <Loader />
   )
 }
 
@@ -45,7 +57,7 @@ return (
           {cartItems.length > 0 ? 
            cartItems.map((item) => (
             <Grid item xs={12} key={item.id}>
-              <CartItem item={item} key={item.id} decreaseQuantityHandler={decreaseQuantityHandler} increaseQuantityHandler={increaseQuantityHandler}/>
+              <CartItem item={item} key={item.id}  sendingData={ sendingData } decreaseQuantityHandler={decreaseQuantityHandler} increaseQuantityHandler={increaseQuantityHandler}/>
             </Grid>
           ))
           :

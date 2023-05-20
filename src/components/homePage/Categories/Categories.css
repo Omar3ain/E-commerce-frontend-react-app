@@ -16,14 +16,24 @@
     justify-content: space-between;
     width: 99%;
 }
-
+.titlepage {
+    text-align: left;
+}
+.titlepage h2 {
+    margin-bottom: 40px;
+    padding-bottom: 10px;
+    border-bottom: #ece87d solid 5px;
+}
+.traineeship{
+    padding: 90px 0 90px 0;
+}
 .traineeship .activity {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
     width: 267px;
     margin: 15px 10px 10px;
-    background-color: #242835;
+    background-color: #212529;
     -webkit-box-shadow: 0 2px 6px 0 rgba(0, 0, 0, .1);
     box-shadow: 0 2px 6px 0 rgba(0, 0, 0, .1);
     cursor: pointer;

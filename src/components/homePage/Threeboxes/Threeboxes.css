@@ -1,0 +1,26 @@
+.three_box {
+  margin-bottom: -80px;
+}
+.gift_box img{
+  width: 20%;
+  margin: 0 auto;
+}
+
+.gift_box {
+  background-color: #fff;
+  box-shadow: 0px 0px 16px rgba(13, 3, 3, 7%);
+  text-align: center;
+  padding: 40px 1px;
+  border-radius: 20px;
+}
+
+.gift_box i {
+  display: block;
+}
+
+.gift_box span {
+  color: #212529;
+  font-size: 17px;
+  padding-top: 5px;
+  display: block;
+}

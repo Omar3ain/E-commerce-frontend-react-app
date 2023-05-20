@@ -12,7 +12,6 @@ const initialState = {
     message: "",
 };
 
-
 export const placeOrder = createAsyncThunk(
     "order/add",
     async (address, thunkAPI) => {
@@ -94,7 +93,7 @@ const orderSlice = createSlice({
                 state.order = action.payload.order;
                 state.orderItems = action.payload.order_items;
                 toast.success("Order placed successfully")
-
+                localStorage.setItem('cartItems' , JSON.stringify(0));
             })
             .addCase(placeOrder.rejected, (state, action) => {
                 state.message = action.payload;

@@ -8,6 +8,7 @@ import ProductItem from "../../components/products/index.js";
 import { getWishlist } from "../../features/wishlist/wishlistSlice";
 import { useParams } from 'react-router-dom';
 import debounce from "lodash.debounce";
+import Loader from "../../components/layout/loader/Loader";
 
 const Products = () => {
     const dispatch = useDispatch();
@@ -45,7 +46,7 @@ const Products = () => {
                         sx={{ marginBottom: 5 }}
                     />
                     {isLoading ? (
-                        <h2 style={{ textAlign: 'center' }}>Loading...</h2>
+                        <Loader/>
                     ) : products.length === 0 ? (
                         <h2 style={{ textAlign: 'center' }}>No products to display</h2>
                     ) : (

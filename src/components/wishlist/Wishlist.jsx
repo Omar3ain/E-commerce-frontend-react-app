@@ -4,6 +4,7 @@ import WishlistItem from './WishlistItem';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { getWishlist } from '../../features/wishlist/wishlistSlice';
+import Loader from '../layout/loader/Loader';
 
 const Wishlist= () => {
 
@@ -16,9 +17,7 @@ const Wishlist= () => {
 
     if (isLoading) {
         return (
-            <div className="loading">
-                <h1>Loading....</h1>
-            </div>
+           <Loader/>
         )
     }
 

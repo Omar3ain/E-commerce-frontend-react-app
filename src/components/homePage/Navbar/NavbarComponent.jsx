@@ -1,5 +1,5 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useEffect, useState,useRef,  } from "react";
+import { useEffect, useState, useRef, } from "react";
 import styles from "./Navbar.module.css";
 import { useNavigate } from "react-router-dom";
 import { logout, reset } from "../../../features/auth/authSlice";
@@ -12,6 +12,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import { Logout } from "@mui/icons-material";
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
+import Extendednavbar from "../Extendednavbar/Extendednavbar";
 import { API_BASE_URL } from '../../../baseUrl';
 
 function NavbarComponent() {
@@ -19,11 +20,12 @@ function NavbarComponent() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [active, setActive] = useState(false);
-  const ref = useRef(); 
+  const ref = useRef();
   const { user } = useSelector((state) => state.auth);
   const { cartItems } = useSelector((state) => state.cart);
 
   useEffect(() => {
+
     const handleClickOutside = (event) => {
       if (ref.current && !ref.current.contains(event.target)) {
         setActive(false);
@@ -34,27 +36,26 @@ function NavbarComponent() {
       document.removeEventListener("click", handleClickOutside);
     };
   }, [ref]);
-  let cart;
 
-  if( cartItems.length > 0 ) {
-    cart = cartItems.reduce((acc, cur) => {
+  let [cart, setCart] = useState(0);
+  useEffect(() => {
+
+    dispatch(getCart())
+  }, [])
+
+  let cartItem;
+  useEffect(() => {
+    cartItem = cartItems.reduce((acc, cur) => {
       if (!acc.find((item) => item.id === cur.id)) {
         acc.push(cur);
       }
       return acc;
     }, []);
-    cart = cart.length;
-    localStorage.setItem('cartItems' , JSON.stringify(cart) );
-  } else {
-    cart = JSON.parse( localStorage.getItem('cartItems'));
+    localStorage.setItem('cartItems' , JSON.stringify(cartItem.length) );
 
-    if(cart == 1){
-      dispatch(getCart());
-    }
-  }
-  
-  
-  const onLogout = () => {
+    setCart(JSON.parse(localStorage.getItem('cartItems')));
+  }, [cartItems])
+ const onLogout = () => {
     dispatch(logout());
     dispatch(reset());
     navigate("/");
@@ -69,79 +70,79 @@ function NavbarComponent() {
   };
   return (
     <>
+    <Extendednavbar/>
       <div className={styles["navContainer"]}>
         <p className={styles["logo"]} onClick={() => navigate("/")}>
-          <span>W</span>ebsite
+          <span>S</span>ellio
         </p>
         <div className="d-flex justify-content-end align-items-center">
-        <div className={styles["hamburger"]} ref={ref}>
-          <input
-            type="checkbox"
-            className={styles["hamburger-init"]}
-            checked={active}
-            onChange={() => setActive(!active)}
-          />
-          <div className={styles["menu"]}>
-            <div className={styles["bar1"]}></div>
-            <div className={styles["bar2"]}></div>
-            <div className={styles["bar3"]}></div>
+          <div className={styles["hamburger"]} ref={ref}>
+            <input
+              type="checkbox"
+              className={styles["hamburger-init"]}
+              checked={active}
+              onChange={() => setActive(!active)}
+            />
+            <div className={styles["menu"]}>
+              <div className={styles["bar1"]}></div>
+              <div className={styles["bar2"]}></div>
+              <div className={styles["bar3"]}></div>
+            </div>
           </div>
-        </div>
 
-        <ul
-          className={`${styles["list"]} ${active ? styles["isActive"] : ""} ${
-            active ? styles["newClass"] : ""
-          }`}
-        >
-          <li>
-            <p onClick={() => navigate("/")}>Home</p>
-          </li>
-          <li>
-            <p onClick={() => navigate("/products")}>Products</p>
-          </li>
-          <li>
-            <p onClick={() => navigate("/aboutUs")}>About us</p>
-          </li>
-          {user ? (
-            <>
-              <li>
-                <div>
-                  <ShoppingCartIcon
-                    onClick={() => navigate("/cart")}
-                    style={{ cursor: "pointer" }}
+          <ul
+            className={`${styles["list"]} ${active ? styles["isActive"] : ""} ${active ? styles["newClass"] : ""
+              }`}
+          >
+            <li>
+              <p onClick={() => navigate("/")}>Home</p>
+            </li>
+            <li>
+              <p onClick={() => navigate("/products")}>Products</p>
+            </li>
+            <li>
+              <p onClick={() => navigate("/aboutUs")}>About us</p>
+            </li>
+            {user ? (
+              <>
+                <li>
+                  <div>
+                    <ShoppingCartIcon
+                      onClick={() => navigate("/cart")}
+                      style={{ cursor: "pointer" }}
+                    />
+                    {cart > 0 && <span>{cart}</span>}
+                  </div>
+                </li>
+                <li>
+                  <FavoriteIcon
+                    onClick={() => navigate("/wishlist")}
+                    style={{ cursor: "pointer", color: "#ece87d" }}
                   />
-                  {cart> 0 && <span>{cart}</span>}
-                </div>
-              </li>
-              <li>
-                <FavoriteIcon
-                  onClick={() => navigate("/wishlist")}
-                  style={{ cursor: "pointer", color: "#ece87d" }}
-                />
-              </li>
-            </>
-          ) : (
-            <>
-              <li>
-                <a
-                  href="/login"
-                  className={"btn btn-primary " + styles["background_btn"]}
-                >
-                  Login
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/register"
-                  className={"btn btn-primary " + styles["background_btn"]}
-                >
-                  Register
-                </a>
-              </li>
-            </>
-          )}
-        </ul>
-        {user ?
+                </li>
+              </>
+            ) : (
+              <>
+                <li>
+                  <a
+                    href="/login"
+                    className={"btn btn-primary " + styles["background_btn"]}
+                  >
+                    Login
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/register"
+                    className={"btn btn-primary " + styles["background_btn"]}
+                  >
+                    Register
+                  </a>
+                </li>
+              </>
+            )}
+          </ul>
+          {user ?
             (<div>
               <IconButton
                 onClick={handleClick}
@@ -163,7 +164,7 @@ function NavbarComponent() {
                   'aria-labelledby': 'basic-button',
                 }}
               >
-                <MenuItem disabled style={{color:"black"}}>{user.name}</MenuItem>
+                <MenuItem disabled style={{ color: "black" }}>{user.name}</MenuItem>
                 <Divider></Divider>
                 <MenuItem onClick={() => { navigate("/profile"); handleClose() }}><ListItemIcon>
                   <PersonIcon fontSize="small" />
@@ -190,7 +191,7 @@ function NavbarComponent() {
                   </a></MenuItem>
               </Menu>
             </div>) : ''}
-      </div>
+        </div>
       </div>
     </>
   );
