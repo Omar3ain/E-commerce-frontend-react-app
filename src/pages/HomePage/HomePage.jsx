@@ -25,7 +25,6 @@ function HomePage() {
       <Categories/>
 
       <Threeboxes/>
-      <Footer/>
     </div>
     </>
   )
