@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
+import { Select, MenuItem } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -9,12 +10,15 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
+import FormControl from "@mui/material/FormControl";
+import InputLabel from "@mui/material/InputLabel";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import { register } from "../../../features/auth/authSlice";
 import Loader from "../../layout/loader";
+import countryList from "react-select-country-list";
 
 function Copyright(props) {
   return (
@@ -43,13 +47,29 @@ function Register() {
     email: "",
     password: "",
     phone: "",
-    address: "",
+    country: null,
+    streetName: "",
+    buildingNo: null,
+    floorNo: null,
+    apartmentNo: null,
     dob: "",
     image: null,
   });
 
-  const { name, username, email, password, phone, address, dob, image } =
-    formData;
+  const {
+    name,
+    username,
+    email,
+    password,
+    phone,
+    country,
+    streetName,
+    buildingNo,
+    floorNo,
+    apartmentNo,
+    dob,
+    image,
+  } = formData;
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -58,24 +78,36 @@ function Register() {
     (state) => state.auth
   );
 
+  const options = useMemo(() => {
+    const countries = countryList().getData();
+    return countries.map((country) => ({
+      label: `${country.label} (${country.value})`,
+      value: country.value,
+    }));
+  }, []);
+
   useEffect(() => {
     if (isRegisterSuccess) {
       setTimeout(() => {
         navigate("/login");
-      }
-      , 3000);
+      }, 3000);
     }
 
-    if(user && !isRegisterSuccess){
+    if (user && !isRegisterSuccess) {
       navigate("/profile");
     }
-  }, [ user, isError, isRegisterSuccess, message, navigate, dispatch]);
+  }, [user, isError, isRegisterSuccess, message, navigate, dispatch]);
 
   const onChange = (e) => {
     if (e.target.name === "image") {
       setFormData((prevState) => ({
         ...prevState,
         image: e.target.files[0],
+      }));
+    } else if (e.target.name === "country") {
+      setFormData((prevState) => ({
+        ...prevState,
+        country: e.target.value,
       }));
     } else {
       setFormData((prevState) => ({
@@ -99,15 +131,31 @@ function Register() {
     if (phone) {
       form_data.append("phone", phone);
     }
-    
-    if (address) {
-      form_data.append("address", address);
+
+    if (country) {
+      form_data.append("country", country);
     }
-    
+
+    if (streetName) {
+      form_data.append("street_name", streetName);
+    }
+
+    if (buildingNo) {
+      form_data.append("building_no", buildingNo);
+    }
+
+    if (floorNo) {
+      form_data.append("floor_no", floorNo);
+    }
+
+    if (apartmentNo) {
+      form_data.append("apartment_no", apartmentNo);
+    }
+
     if (dob) {
       form_data.append("dob", dob);
     }
-    
+
     if (image) {
       form_data.append("image", image);
     }
@@ -121,7 +169,7 @@ function Register() {
         <Loader />
       ) : (
         <ThemeProvider theme={theme}>
-          <Container component="main" maxWidth="sm" sx={{padding: 2}}>
+          <Container component="main" maxWidth="sm" sx={{ padding: 2 }}>
             <CssBaseline />
             <Box
               sx={{
@@ -220,14 +268,84 @@ function Register() {
                       onChange={onChange}
                     />
                   </Grid>
-                  <Grid item xs={12}>
-                    <TextField
-                      id="address"
-                      label="Address"
-                      name="address"
+                  <Grid item xs={12} sm={6}>
+                    <FormControl fullWidth>
+                      <InputLabel id="country-label">Country</InputLabel>
+                      <Select
+                        labelId="country-label"
+                        id="country"
+                        name="country"
+                        value={country}
+                        onChange={onChange}
+                      >
+                        {options.map((option, i) => (
+                          <MenuItem key={i} value={option.value}>
+                            {option.label}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    </FormControl>
+                    {/* <FormControl fullWidth>
+                      <InputLabel id="country-label">Country</InputLabel>
+                      <Select
+                        labelId="country-label"
+                        id="country"
+                        name="country"
+                        value={country}
+                        onChange={onChange}
+                      >
+                        {options.map((option, i) => (
+                          <MenuItem key={i} value={option.label}>
+                            {option.label}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    </FormControl> */}
+                    {/* <CountrySelect
+                      id="country"
+                      label="Country"
+                      name="country"
                       fullWidth
-                      multiline
-                      rows={4}
+                      onChange={onChange}
+                      value={country}
+                    /> */}
+                  </Grid>
+                  <Grid item xs={12} sm={6}>
+                    <TextField
+                      id="streetName"
+                      label="Street Name"
+                      name="streetName"
+                      fullWidth
+                      onChange={onChange}
+                    />
+                  </Grid>
+                  <Grid item xs={12} sm={6}>
+                    <TextField
+                      id="buildingNo"
+                      label="Building No"
+                      name="buildingNo"
+                      type="number"
+                      fullWidth
+                      onChange={onChange}
+                    />
+                  </Grid>
+                  <Grid item xs={12} sm={6}>
+                    <TextField
+                      id="floorNo"
+                      label="Floor No"
+                      name="floorNo"
+                      type="number"
+                      fullWidth
+                      onChange={onChange}
+                    />
+                  </Grid>
+                  <Grid item xs={12} sm={6}>
+                    <TextField
+                      id="apartmentNo"
+                      label="Apartment No"
+                      name="apartmentNo"
+                      type="number"
+                      fullWidth
                       onChange={onChange}
                     />
                   </Grid>
@@ -250,21 +368,27 @@ function Register() {
                   type="submit"
                   fullWidth
                   variant="contained"
-                  sx={{ mt: 3, mb: 2, backgroundColor: '#ece87d', color: '#2d2a32', "&:hover":{backgroundColor: '#fffcae'} }}
+                  sx={{
+                    mt: 3,
+                    mb: 2,
+                    backgroundColor: "#ece87d",
+                    color: "#2d2a32",
+                    "&:hover": { backgroundColor: "#fffcae" },
+                  }}
                 >
                   Sign Up
                 </Button>
                 <Grid container justifyContent="flex-end">
                   <Grid item>
-                    <Link onClick={()=>{navigate('/login')}} variant="body2">
+                    <Link onClick={() => navigate("/login")} variant="body2">
                       Already have an account? Sign in
                     </Link>
                   </Grid>
                 </Grid>
               </Box>
               <ToastContainer />
-              </Box>
-              <Copyright sx={{ mt: 5, color:'#FAFDF6' }} />
+            </Box>
+            <Copyright sx={{ mt: 5, color: "#FAFDF6" }} />
           </Container>
         </ThemeProvider>
       )}
