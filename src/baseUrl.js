@@ -1,1 +1,1 @@
-export const API_BASE_URL = 'sellio-ecommerce-app.onrender.com';
+export const API_BASE_URL = 'https://sellio-ecommerce-app.onrender.com/';
